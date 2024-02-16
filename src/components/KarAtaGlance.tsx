@@ -37,12 +37,12 @@ const KarAtaGlance: FC<KarAtaGlanceProps> = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <Link
+                    {/* <Link
                         href={'https://www.karnataka.gov.in/new-page/Karnataka%20at%20a%20Glance/en'}
                         className='w-12 underline rounded-lg bg-sky-600'
                     >
                         Click here
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>
