@@ -27,7 +27,7 @@ export const options: NextAuthOptions = {
 
         const matchingUser = await db.user.findFirst({
           where: {
-            username: credentials?.username,
+            name: credentials?.username,
           },
         });
 
@@ -42,7 +42,7 @@ export const options: NextAuthOptions = {
         // Compare the provided password with the hashed password stored in the database
         const passwordMatch = bcrypt.compare(
           credentials?.password,
-          matchingUser.password
+          matchingUser?.password as string
         );
 
         if (!passwordMatch) {
@@ -51,7 +51,7 @@ export const options: NextAuthOptions = {
 
         return {
           id: matchingUser.id.toString(),
-          name: matchingUser.username,
+          name: matchingUser.name,
           email: matchingUser.email,
         };
       },
