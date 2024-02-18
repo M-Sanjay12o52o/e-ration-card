@@ -2,50 +2,63 @@
 
 import { Card } from '@/components/ui/card';
 import { X, XCircle } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 const SignUpForm = () => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [mobNumber, setMobNumber] = useState('');
-    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [formValues, setFormValues] = useState({
+        username: "",
+        email: "",
+        mobNumber: "",
+        password: "",
+    });
+    const [error, setError] = useState("");
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useRouter();
 
     const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // Prevent default form submission behavior
 
+        setLoading(true);
+        console.log("formvalues: ", formValues)
+        setFormValues({ username: "", email: "", password: "", mobNumber: "" });
+
         try {
             // Client-side validation
-            if (password !== confirmPassword) {
+            if (formValues.password !== confirmPassword) {
                 alert('Password do not match');
                 return;
             }
 
-            const response = await fetch('/api/signup', {
+            const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, email, password }),
+                body: JSON.stringify(formValues),
             });
 
-            if (response.ok) {
-                // Handle successful sign-up
-                alert('User signed up successfully');
-                // Optionally, clear the form or redirect to a different page
-            } else {
-                // Handle sign-up error
-                alert('Failed to sign up');
-                const errorData = await response.json(); // Parse error response for more specific details
-                console.error('Sign-up error:', errorData);
+            setLoading(false);
+
+            if (!response.ok) {
+                setError((await response.json()).message);
+                return;
             }
-        } catch (error) {
-            alert(`Error during sign-up: ${error}`);
-            console.error('Sign-up error:', error);
+
+            signIn(undefined, { callbackUrl: "/" });
+
+        } catch (error: any) {
+            setLoading(false);
+            setError(error);
         }
+    };
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormValues({ ...formValues, [name]: value });
     };
 
     return (
@@ -59,13 +72,18 @@ const SignUpForm = () => {
                     <XCircle className='cursor-pointer' />
                 </Link>
                 <form onSubmit={handleSignUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {error && (
+                        <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
+                    )}
                     <br />
-                    Username - <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-                    Email - <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                    Number - <input type="tel" value={mobNumber} onChange={(e) => setMobNumber(e.target.value)} placeholder="Mobile Number" />
-                    Password - <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                    Confirm Password - <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password" />
-                    <button className='bg-blue-600 rounded-md ml-12 h-10 w-80' type="submit">Sign Up</button>
+                    Username - <input name='username' type="text" value={formValues.username} onChange={handleChange} placeholder="Username" />
+                    Email - <input name='email' type="email" value={formValues.email} onChange={handleChange} placeholder="Email" />
+                    Number - <input name='mobNumber' type="tel" value={formValues.mobNumber} onChange={handleChange} placeholder="Mobile Number" />
+                    Password - <input name='password' type="password" value={formValues.password} onChange={handleChange} placeholder="Password" />
+                    Confirm Password - <input name='password' type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password" />
+                    <button className='bg-blue-600 rounded-md ml-12 h-10 w-80' type="submit" disabled={loading}>
+                        Sign Up
+                    </button>
                 </form>
             </Card>
         </div>

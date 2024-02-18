@@ -4,14 +4,20 @@ import { db } from "@/lib/db";
 import bcrypt from "bcrypt";
 
 export const options: NextAuthOptions = {
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt"
+  },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "Login in",
       credentials: {
-        username: {
-          label: "Username:",
-          type: "text",
-          placeholder: "your-cool-username",
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "example@example.com",
         },
         password: {
           label: "Password:",
@@ -20,16 +26,20 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        const { username, password } = credentials as {
-          username: string;
+        const { email, password } = credentials as {
+          email: string;
           password: string;
         };
 
+        console.log("email: ", email, "password: ", password)
+
         const matchingUser = await db.user.findFirst({
           where: {
-            name: credentials?.username,
+            email: credentials?.email,
           },
         });
+
+        console.log("matchingUser: ", matchingUser)
 
         if (!matchingUser) {
           return null; // User not found
@@ -50,11 +60,35 @@ export const options: NextAuthOptions = {
         }
 
         return {
-          id: matchingUser.id.toString(),
+          id: matchingUser.id,
           name: matchingUser.name,
           email: matchingUser.email,
+          randomKey: "Hey cool",
         };
       },
     }),
   ],
+  callbacks: {
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
+        }
+      }
+    },
+    jwt: ({ token, user }) => {
+      if (user) {
+        const u = user as unknown as any;
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        };
+      }
+      return token;
+    },
+  }
 };

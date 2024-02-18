@@ -1,31 +1,58 @@
 "use client"
 
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { Card } from '@/components/ui/card';
 import { X, XCircle } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 
 interface pageProps { }
 
 const LoginPage: FC<pageProps> = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useRouter();
+    const [formValues, setFormValues] = useState({
+        email: "",
+        password: "",
+    });
+    const [error, setError] = useState("");
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Prevent default form submission behavior
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "/profile";
 
-        // Implement your login logic here
-        // ...
-
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
         try {
-            // ... handle login response
-        } catch (error) {
-            // ... handle login error
+            setLoading(true);
+            setFormValues({ email: "", password: "" });
+
+            const res = await signIn("credentials", {
+                redirect: false,
+                email: formValues.email,
+                password: formValues.password,
+                callbackUrl,
+            });
+
+            setLoading(false);
+
+            console.log(res);
+            if (!res?.error) {
+                router.push(callbackUrl);
+            } else {
+                setError("invalid email or password");
+            }
+        } catch (error: any) {
+            setLoading(false);
+            setError(error);
         }
     };
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormValues({ ...formValues, [name]: value })
+    }
 
     return (
         <div className="container mx-auto pt-24">
@@ -41,12 +68,15 @@ const LoginPage: FC<pageProps> = () => {
                 <Link href="/">
                     <XCircle className="cursor-pointer" />
                 </Link>
-                <form onSubmit={handleLogin} className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+                    {error && (
+                        <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
+                    )}
                     <br />
-                    Username - <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-                    Password - <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                    <button className="bg-blue-600 rounded-md ml-12 h-10 w-80" type="submit">
-                        Log In
+                    Email - <input type="email" name='email' value={formValues.email} onChange={handleChange} placeholder="E-mail" />
+                    Password - <input type="password" name='password' value={formValues.password} onChange={handleChange} placeholder="Password" />
+                    <button className="bg-blue-600 rounded-md ml-12 h-10 w-80" type="submit" disabled={loading}>
+                        {loading ? "loading..." : "Log In"}
                     </button>
                 </form>
             </Card>
