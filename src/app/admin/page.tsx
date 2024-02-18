@@ -2,72 +2,57 @@
 
 import AddHubForm from '@/components/AddHubForm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 interface Hub {
     name: string;
     address: string;
-    numberOfEmps: number;
-    supervisorName: string;
-    supervisorContact: string;
+    superVisorName: string;
+    vehicleNumber: string;
+    // supervisorContact: string;
 }
-
-const dummyHubData: Hub[] = [
-    {
-        name: "hongasandra",
-        address: "123 Hongasandra St.",
-        numberOfEmps: 50,
-        supervisorName: "John Doe",
-        supervisorContact: "9797989778"
-    },
-    {
-        name: "jayanagara",
-        address: "456 Jayanagara Ave.",
-        numberOfEmps: 40,
-        supervisorName: "Jane Smith",
-        supervisorContact: "9797989778"
-    },
-    {
-        name: "indiranagara",
-        address: "789 Indiranagara Rd.",
-        numberOfEmps: 30,
-        supervisorName: "Mike Johnson",
-        supervisorContact: "9797989778"
-    },
-    {
-        name: "koramangala",
-        address: "101 Koramangala Blvd.",
-        numberOfEmps: 45,
-        supervisorName: "Emily Brown",
-        supervisorContact: "9797989778"
-    },
-    {
-        name: "hsr layout",
-        address: "234 HSR Layout Ln.",
-        numberOfEmps: 35,
-        supervisorName: "David Wilson",
-        supervisorContact: "9797989778"
-    },
-    {
-        name: "BTM layout",
-        address: "567 BTM Layout Rd.",
-        numberOfEmps: 55,
-        supervisorName: "Sarah Miller",
-        supervisorContact: "9797989778"
-    }];
-
-const hubs = dummyHubData.map((hub) => hub.name); // Extract hub names
 
 const page: FC = () => {
     const [selectedHub, setSelectedHub] = useState('');
     const [addHub, setAddHub] = useState<boolean>(false);
+    const [hubs, setHubs] = useState<Hub[]>([])
+    const [error, setError] = useState<string | null>(null);
+
+    console.log("hubs: ", hubs[1])
+
+    useEffect(() => {
+        const fetchHubs = async () => {
+            try {
+                const response = await fetch('/api/getHubs');
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.statusText}`);
+                }
+
+                const hubsArray = [];
+
+                for (const key in data) {
+                    if (Array.isArray(data[key])) {
+                        hubsArray.push(...data[key])
+                    }
+                }
+
+                setHubs(hubsArray as Hub[]);
+            } catch (error: any) {
+                setError(error.message);
+            }
+        };
+
+        fetchHubs();
+    }, [])
 
     const handleHubChange = (value: string) => {
         setSelectedHub(value);
         console.log("value: ", value)
     };
 
-    const selectedHubData = dummyHubData.find((hub) => hub.name === selectedHub);
+    const selectedHubData = hubs.find((hub) => hub.name === selectedHub);
 
     return (
         <div className="container mx-auto mt-8 px-4 pt-4">
@@ -77,7 +62,7 @@ const page: FC = () => {
                 </SelectTrigger>
                 <SelectContent>
                     {hubs.map((hub, index) => (
-                        <SelectItem value={hub} key={index}>{hub}</SelectItem>
+                        <SelectItem value={hub.name} key={index}>{hub.name}</SelectItem>
                     ))}
                 </SelectContent>
             </Select>
@@ -109,14 +94,14 @@ const page: FC = () => {
                         <span className="w-1/3">Hub Address:</span> {selectedHubData.address}
                     </p>
                     <p className="flex items-center justify-between text-gray-700 font-medium mb-2">
-                        <span className="w-1/3">Number of Emps:</span> {selectedHubData.numberOfEmps}
+                        <span className="w-1/3">Hub Vehicle:</span> {selectedHubData.superVisorName}
                     </p>
                     <p className="flex items-center justify-between text-gray-700 font-medium mb-2">
-                        <span className="w-1/3">Supervisor name:</span> {selectedHubData.supervisorName}
+                        <span className="w-1/3">Supervisor name:</span> {selectedHubData.vehicleNumber}
                     </p>
-                    <p className="flex items-center justify-between text-gray-700 font-medium">
+                    {/* <p className="flex items-center justify-between text-gray-700 font-medium">
                         <span className="w-1/3">Supervisor contact:</span> {selectedHubData.supervisorContact}
-                    </p>
+                    </p> */}
                 </div>
             )}
         </div>
