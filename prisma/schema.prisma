@@ -17,3 +17,11 @@ model User {
   name  String?
   password String?
 }
+
+model Hub {
+  id       String @id @default(uuid())
+  name String @unique
+  address String @unique
+  vehicleNumber String @unique
+  superVisorName String
+}

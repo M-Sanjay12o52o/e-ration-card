@@ -1,22 +1,60 @@
+import axios from 'axios';
 import { X } from 'lucide-react';
-import { Dispatch, FC, FormEvent, SetStateAction, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from 'react';
 
 interface AddHubFormProps {
     setAddHub: Dispatch<SetStateAction<boolean>>
 }
 
 const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
-    const [hubName, setHubName] = useState<string>("");
-    const [address, setAddress] = useState<string>("");
-    const [vehicle, setVehicle] = useState<string>("");
-    const [supervisor, setSupervisor] = useState<string>("");
+    const [error, setError] = useState("");
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e: FormEvent) => {
+    const [formValues, setFormValues] = useState({
+        hubName: "",
+        address: "",
+        vehicle: "",
+        supervisor: ""
+    })
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormValues({ ...formValues, [name]: value })
+    }
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log("Hub Name:", hubName);
-        console.log("Address:", address);
-        console.log("Vehicle Number:", vehicle);
-        console.log("Supervisor Name:", supervisor);
+
+        setLoading(true);
+        console.log("formvalues: ", formValues)
+        setFormValues({
+            hubName: "",
+            address: "",
+            vehicle: "",
+            supervisor: ""
+        })
+
+        try {
+            const response = await fetch('/api/createHub', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formValues),
+            });
+
+            setLoading(false);
+
+            if (!response.ok) {
+                setError((await response.json()).message);
+                return;
+            }
+        } catch (error: any) {
+            setLoading(false);
+            setError(error);
+        }
     };
 
     return (
@@ -29,10 +67,11 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Hub Name</label>
                     <input
                         type="text"
+                        name='hubName'
                         placeholder="Enter hub name"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={hubName}
-                        onChange={(e) => setHubName(e.target.value)}
+                        value={formValues.hubName}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -40,10 +79,11 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Address</label>
                     <input
                         type="text"
+                        name='address'
                         placeholder="Enter hub address"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={formValues.address}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -51,10 +91,11 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Vehicle Number</label>
                     <input
                         type="text"
+                        name='vehicle'
                         placeholder="Enter vehicle number"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={vehicle}
-                        onChange={(e) => setVehicle(e.target.value)}
+                        value={formValues.vehicle}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -62,10 +103,11 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Supervisor Name</label>
                     <input
                         type="text"
+                        name='supervisor'
                         placeholder="Enter supervisor name"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={supervisor}
-                        onChange={(e) => setSupervisor(e.target.value)}
+                        value={formValues.supervisor}
+                        onChange={handleChange}
                     />
                 </div>
 

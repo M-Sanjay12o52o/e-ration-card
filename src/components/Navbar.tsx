@@ -16,9 +16,9 @@ const Navbar: FC<NavbarProps> = ({ }) => {
     return (
         <div className="bg-sky-800 text-white py-4 px-6 flex justify-between items-center h-14 sticky">
             <div className="flex items-center">
-                <button className="flex items-center justify-center mr-4 rounded-lg bg-white text-black w-24">
+                <Link href={'/admin'} className="flex items-center justify-center mr-4 rounded-lg bg-white text-black w-24">
                     <UserRound className="mr-2" /> Sign In
-                </button>
+                </Link>
                 <button className='bg-blue-400 rounded-lg px-2' onClick={() => setLang(lang === "kannada" ? "english" : "kannada")}>
                     {lang}
                 </button>
