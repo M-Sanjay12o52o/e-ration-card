@@ -23,7 +23,6 @@ const SignUpForm = () => {
         event.preventDefault(); // Prevent default form submission behavior
 
         setLoading(true);
-        console.log("formvalues: ", formValues)
         setFormValues({ username: "", email: "", password: "", mobNumber: "" });
 
         try {

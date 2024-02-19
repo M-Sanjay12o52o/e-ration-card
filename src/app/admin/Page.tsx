@@ -13,7 +13,7 @@ interface Hub {
     // supervisorContact: string;
 }
 
-const page: FC = () => {
+const Page: FC = () => {
     const [selectedHub, setSelectedHub] = useState('');
     const [addHub, setAddHub] = useState<boolean>(false);
     const [hubs, setHubs] = useState<Hub[]>([])
@@ -48,7 +48,6 @@ const page: FC = () => {
 
     const handleHubChange = (value: string) => {
         setSelectedHub(value);
-        console.log("value: ", value)
     };
 
 
@@ -106,4 +105,4 @@ const page: FC = () => {
     );
 };
 
-export default page;
+export default Page;

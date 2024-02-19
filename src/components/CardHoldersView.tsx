@@ -28,8 +28,6 @@ const CardHolderView: React.FC = () => {
         fetchCardHolders();
     }, []);
 
-    console.log("cardHoldersData: ", cardHoldersData);
-
     const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchedName(event.target.value.toLowerCase());
     };
@@ -40,9 +38,6 @@ const CardHolderView: React.FC = () => {
             cardHolder.lastName.toLowerCase().includes(searchedName)
         )
         : Object.values(cardHoldersData).flat();
-
-
-    console.log("filteredCardHolders: ", filteredCardHolders)
 
     return (
         <div className="container mx-auto p-4 flex flex-col gap-4 h-screen overflow-y-auto">

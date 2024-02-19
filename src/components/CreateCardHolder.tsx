@@ -29,7 +29,6 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
         event.preventDefault();
 
         setLoading(true);
-        console.log("formvalues: ", formValues)
         setFormValues({
             firstName: "",
             lastName: "",

@@ -29,7 +29,6 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
         e.preventDefault();
 
         setLoading(true);
-        console.log("formvalues: ", formValues)
         setFormValues({
             hubName: "",
             address: "",

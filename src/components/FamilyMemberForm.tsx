@@ -68,9 +68,6 @@ const FamilyMemberForm: FC<FamilyMemberFormProps> = ({ }) => {
         <button
             type="button"
             onClick={() => {
-                // Add family member logic here
-                console.log("Family Member Added:", familyMember);
-                // Clear family member form fields
                 setFamilyMember({
                     firstName: "",
                     lastName: "",

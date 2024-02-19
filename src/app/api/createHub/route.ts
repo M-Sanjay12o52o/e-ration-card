@@ -11,11 +11,6 @@ export async function POST(req: Request) {
             contact: string;
         };
 
-        console.log("test createHub: ", hubName,
-            address,
-            vehicle,
-            supervisor)
-
         const hub = await db.hub.create({
             data: {
                 name: hubName,

@@ -19,8 +19,8 @@ const LoginPage: FC<pageProps> = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
-    const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/profile";
+    // const searchParams = useSearchParams();
+    // const callbackUrl = searchParams.get("callbackUrl") || "/profile";
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -32,14 +32,13 @@ const LoginPage: FC<pageProps> = () => {
                 redirect: false,
                 email: formValues.email,
                 password: formValues.password,
-                callbackUrl,
+                // callbackUrl,
             });
 
             setLoading(false);
 
-            console.log(res);
             if (!res?.error) {
-                router.push(callbackUrl);
+                // router.push(callbackUrl);
             } else {
                 setError("invalid email or password");
             }

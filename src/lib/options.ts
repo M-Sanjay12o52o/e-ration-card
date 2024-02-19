@@ -31,15 +31,11 @@ export const options: NextAuthOptions = {
           password: string;
         };
 
-        console.log("email: ", email, "password: ", password)
-
         const matchingUser = await db.user.findFirst({
           where: {
             email: credentials?.email,
           },
         });
-
-        console.log("matchingUser: ", matchingUser)
 
         if (!matchingUser) {
           return null; // User not found
