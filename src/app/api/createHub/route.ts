@@ -3,11 +3,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-        const { hubName, address, vehicle, supervisor } = (await req.json()) as {
+        const { hubName, address, vehicle, supervisor, contact } = (await req.json()) as {
             hubName: string;
             address: string;
             vehicle: string;
             supervisor: string;
+            contact: string;
         };
 
         console.log("test createHub: ", hubName,
@@ -21,6 +22,7 @@ export async function POST(req: Request) {
                 address: address,
                 vehicleNumber: vehicle,
                 superVisorName: supervisor,
+                contact: contact
             },
         });
 

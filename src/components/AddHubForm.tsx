@@ -16,7 +16,8 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
         hubName: "",
         address: "",
         vehicle: "",
-        supervisor: ""
+        supervisor: "",
+        contact: ""
     })
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +34,8 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
             hubName: "",
             address: "",
             vehicle: "",
-            supervisor: ""
+            supervisor: "",
+            contact: ""
         })
 
         try {
@@ -107,6 +109,18 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                         placeholder="Enter supervisor name"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
                         value={formValues.supervisor}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="grid grid-cols-1 mb-4">
+                    <label className="block font-medium text-gray-700 mb-2">Contact</label>
+                    <input
+                        type="text"
+                        name='contact'
+                        placeholder="Enter contact info"
+                        className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
+                        value={formValues.contact}
                         onChange={handleChange}
                     />
                 </div>

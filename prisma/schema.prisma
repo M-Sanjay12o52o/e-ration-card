@@ -11,17 +11,38 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email String  @unique
-  number String @unique
-  name  String?
+  id       String  @id @default(uuid())
+  email    String  @unique
+  number   String  @unique
+  name     String?
   password String?
 }
 
 model Hub {
-  id       String @id @default(uuid())
-  name String @unique
-  address String @unique
-  vehicleNumber String @unique
+  id             String @id @default(uuid())
+  name           String @unique
+  address        String @unique
+  vehicleNumber  String @unique
   superVisorName String
+  contact        String @unique
+}
+
+// model FamilyMembers {
+//   id           String     @id @default(uuid())
+//   firstName    String
+//   lastName     String
+//   age          Int
+//   gender       String
+//   cardHolder   CardHolder @relation(fields: [cardHolderId], references: [id])
+//   cardHolderId String
+// }
+
+model CardHolder {
+  id            String          @id @default(uuid())
+  firstName     String          @unique
+  lastName      String          @unique
+  address       String          @unique
+  familyCount   Int
+  gender        String
+  // familyMembers FamilyMembers[]
 }
