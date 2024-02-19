@@ -15,7 +15,7 @@ const Nav2: FC<Nav2Props> = ({ }) => {
         </div>
         <div className="flex flex-row ml-[650px]">
             <div className="flex flex-col items-center px-2">
-                <button className="flex items-center"><HomeIcon /></button>
+                <Link href={'/'} className="flex items-center"><HomeIcon /></Link>
                 <p>Home</p>
             </div>
             <div className="flex flex-col items-center px-2">
@@ -23,8 +23,8 @@ const Nav2: FC<Nav2Props> = ({ }) => {
                 <p>about us</p>
             </div>
             <div className="flex flex-col items-center px-2">
-                <button className="flex items-center"><School2Icon /></button>
-                <p>government</p>
+                <Link href={'/CardHolders'} className="flex items-center"><School2Icon /></Link>
+                <p>view</p>
             </div>
             <div className="flex flex-col items-center px-2">
                 <button className="flex items-center"><GraduationCap /></button>

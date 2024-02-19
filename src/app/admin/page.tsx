@@ -19,8 +19,6 @@ const page: FC = () => {
     const [hubs, setHubs] = useState<Hub[]>([])
     const [error, setError] = useState<string | null>(null);
 
-    console.log("hubs: ", hubs[1])
-
     useEffect(() => {
         const fetchHubs = async () => {
             try {
@@ -53,6 +51,7 @@ const page: FC = () => {
         console.log("value: ", value)
     };
 
+
     const selectedHubData = hubs.find((hub) => hub.name === selectedHub);
 
     return (
@@ -77,12 +76,6 @@ const page: FC = () => {
                     </button>
                 )
             }
-
-            {/* TODO: Searching ration card using id */}
-            <div>
-                <input className='w-64 rounded-md mt-4 h-10 mr-2' type="text" />
-                <button className='bg-blue-500 h-10 w-16 rounded-md'>Search</button>
-            </div>
 
             <div className='w-64 h-12 bg-slate-600 rounded-md text-center align-middle mt-4 cursor-pointer'>
                 <Link href={'/createCardHolder'}>Create Card Holders</Link>
