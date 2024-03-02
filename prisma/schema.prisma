@@ -38,11 +38,12 @@ model Hub {
 // }
 
 model CardHolder {
-  id            String          @id @default(uuid())
-  firstName     String          @unique
-  lastName      String          @unique
-  address       String          @unique
-  familyCount   Int
-  gender        String
+  id          String @id @default(uuid())
+  firstName   String @unique
+  lastName    String @unique
+  address     String @unique
+  familyCount Int
+  gender      String
+  number      String
   // familyMembers FamilyMembers[]
 }

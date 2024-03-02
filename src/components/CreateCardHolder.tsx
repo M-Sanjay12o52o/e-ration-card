@@ -3,9 +3,7 @@
 import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FC, useState } from 'react';
 
-interface CreateCardHolderProps {
-    // Define props here if needed
-}
+interface CreateCardHolderProps { }
 
 const CreateCardHolder: FC<CreateCardHolderProps> = () => {
     const [error, setError] = useState("");
@@ -14,6 +12,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
     const [formValues, setFormValues] = useState({
         firstName: "",
         lastName: "",
+        number: "",
         age: 0,
         gender: "",
         address: "",
@@ -32,6 +31,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
         setFormValues({
             firstName: "",
             lastName: "",
+            number: "",
             age: 0,
             gender: "",
             address: "",
@@ -61,8 +61,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
 
     return (
         <div className="container mx-auto mt-8 px-4 pt-4">
-            {/* <h2 className="text-center font-bold mb-4">Create Card Holder</h2> */}
-            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 bg-gray-100 rounded-md p-4 shadow-md">
+            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 bg-orange-500 rounded-md p-4 shadow-md overflow-auto">
                 <div className="flex flex-col w-64">
                     <label htmlFor="firstName" className="mb-2">First Name:</label>
                     <input
@@ -80,6 +79,17 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
                         name="lastName"
                         type="text"
                         value={formValues.lastName}
+                        onChange={handleChange}
+                        id="lastName"
+                        className="rounded-md border-gray-300 p-2 focus:border-blue-500 "
+                    />
+                </div>
+                <div className="flex flex-col w-64">
+                    <label htmlFor="lastName" className="mb-2">Number:</label>
+                    <input
+                        name="number"
+                        type="text"
+                        value={formValues.number}
                         onChange={handleChange}
                         id="lastName"
                         className="rounded-md border-gray-300 p-2 focus:border-blue-500"
@@ -136,5 +146,4 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
     );
 };
 
-
-export default CreateCardHolder
+export default CreateCardHolder;

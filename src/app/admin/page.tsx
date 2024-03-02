@@ -76,8 +76,12 @@ const Page: FC = () => {
                 )
             }
 
-            <div className='w-64 h-12 bg-slate-600 rounded-md text-center align-middle mt-4 cursor-pointer'>
+            <div className='w-64 h-10 text-center pt-2 bg-slate-600 rounded-md mt-4 cursor-pointer'>
                 <Link href={'/createCardHolder'}>Create Card Holders</Link>
+            </div>
+
+            <div className='w-64 h-10 text-center pt-2 bg-slate-600 rounded-md mt-4 cursor-pointer'>
+                <Link href={'/notifications'}>Notifications</Link>
             </div>
 
             <div className="selected-hub text-center font-bold text-xl mb-4">Selected hub: {selectedHub}</div>
