@@ -92,6 +92,21 @@ const Navbar: FC<NavbarProps> = ({ }) => {
                                                 <CommandItem>
                                                     <Link href={"/CardHolders"}>View</Link>
                                                 </CommandItem>
+                                                <CommandItem>
+                                                    <Link href={"/admin"}>Admin</Link>
+                                                </CommandItem>
+                                                <CommandItem>
+                                                    <Link href={"/ePeople"}>ePeople</Link>
+                                                </CommandItem>
+                                                <CommandItem>
+                                                    <Link href={"/login"}>Login</Link>
+                                                </CommandItem>
+                                                <CommandItem>
+                                                    <Link href={"/profile"}>Profile</Link>
+                                                </CommandItem>
+                                                <CommandItem>
+                                                    <Link href={"/register"}>Register</Link>
+                                                </CommandItem>
                                             </CommandGroup>
                                         </CommandList>
                                     </Command>
