@@ -7,7 +7,7 @@ interface pageProps {
 
 }
 
-const page: FC<pageProps> = ({ }) => {
+const Page: FC<pageProps> = ({ }) => {
     const [searchedName, setSearchedName] = useState<string>("");
     const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -56,4 +56,4 @@ const page: FC<pageProps> = ({ }) => {
     )
 }
 
-export default page
+export default Page
