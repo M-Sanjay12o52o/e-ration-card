@@ -5,4 +5,6 @@ interface CardHoldersType {
     address: string
     familyCount: number
     gender: string
+    number: string
+    email: string
 }

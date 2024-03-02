@@ -9,6 +9,8 @@ export async function POST(req: Request) {
             address,
             familyCount,
             gender,
+            number,
+            email
             // familyMembers
         } = (await req.json()) as {
             firstName: string,
@@ -16,6 +18,8 @@ export async function POST(req: Request) {
             address: string;
             familyCount: string;
             gender: string;
+            number: string;
+            email: string;
             // familyMembers: string;
         };
 
@@ -28,6 +32,8 @@ export async function POST(req: Request) {
                 address: address,
                 familyCount: familyCountInt,
                 gender: gender,
+                number: number,
+                email: email
                 // familyMembers: familyMembers
             },
         });

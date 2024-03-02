@@ -13,6 +13,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
         firstName: "",
         lastName: "",
         number: "",
+        email: "",
         age: 0,
         gender: "",
         address: "",
@@ -32,6 +33,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
             firstName: "",
             lastName: "",
             number: "",
+            email: "",
             age: 0,
             gender: "",
             address: "",
@@ -60,89 +62,104 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
     };
 
     return (
-        <div className="container mx-auto mt-8 px-4 pt-4">
-            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 bg-orange-500 rounded-md p-4 shadow-md overflow-auto">
-                <div className="flex flex-col w-64">
-                    <label htmlFor="firstName" className="mb-2">First Name:</label>
-                    <input
-                        name="firstName"
-                        type="text"
-                        value={formValues.firstName}
-                        onChange={handleChange}
-                        id="firstName"
-                        className="rounded-md border-gray-300 p-2 focus:border-blue-500"
-                    />
-                </div>
-                <div className="flex flex-col w-64">
-                    <label htmlFor="lastName" className="mb-2">Last Name:</label>
-                    <input
-                        name="lastName"
-                        type="text"
-                        value={formValues.lastName}
-                        onChange={handleChange}
-                        id="lastName"
-                        className="rounded-md border-gray-300 p-2 focus:border-blue-500 "
-                    />
-                </div>
-                <div className="flex flex-col w-64">
-                    <label htmlFor="lastName" className="mb-2">Number:</label>
-                    <input
-                        name="number"
-                        type="text"
-                        value={formValues.number}
-                        onChange={handleChange}
-                        id="lastName"
-                        className="rounded-md border-gray-300 p-2 focus:border-blue-500"
-                    />
-                </div>
-                <div className="flex flex-col w-64">
-                    <label htmlFor="age" className="mb-2">Age:</label>
-                    <input
-                        name="age"
-                        type="number"
-                        value={formValues.age}
-                        onChange={handleChange}
-                        id="age"
-                        className="rounded-md border-gray-300 p-2 focus:border-blue-500"
-                    />
-                </div>
-                <div className="flex flex-col w-64">
-                    <label htmlFor="gender" className="mb-2">Gender:</label>
-                    <input
-                        name="gender"
-                        type="text"
-                        value={formValues.gender}
-                        onChange={handleChange}
-                        id="gender"
-                        className="rounded-md border-gray-300 p-2 focus:border-blue-500"
-                    />
-                </div>
-                <div className="flex flex-col w-64">
-                    <label htmlFor="address" className="mb-2">Address:</label>
-                    <textarea
-                        name="address"
-                        value={formValues.address}
-                        onChange={handleChange}
-                        id="address"
-                        className="rounded-md border-gray-300 p-2 h-20 focus:border-blue-500"
-                    />
-                </div>
-                <div className="flex flex-col w-64">
-                    <label htmlFor="familyCount" className="mb-2">Family Count:</label>
-                    <input
-                        name="familyCount"
-                        type="number"
-                        value={formValues.familyCount}
-                        onChange={handleChange}
-                        id="familyCount"
-                        className="rounded-md border-gray-300 p-2 focus:border-blue-500"
-                    />
+        <div className="container mx-auto mt-8 px-4 pt-4 h-screen flex justify-center items-center">
+            <form onSubmit={handleSubmit} className="bg-slate-700 rounded-md p-8 shadow-md">
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="flex flex-col">
+                        <label htmlFor="firstName" className="mb-1 text-white">First Name:</label>
+                        <input
+                            name="firstName"
+                            type="text"
+                            value={formValues.firstName}
+                            onChange={handleChange}
+                            id="firstName"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="lastName" className="mb-1 text-white">Last Name:</label>
+                        <input
+                            name="lastName"
+                            type="text"
+                            value={formValues.lastName}
+                            onChange={handleChange}
+                            id="lastName"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="number" className="mb-1 text-white">Number:</label>
+                        <input
+                            name="number"
+                            type="text"
+                            value={formValues.number}
+                            onChange={handleChange}
+                            id="number"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="email" className="mb-1 text-white">Email:</label>
+                        <input
+                            name="email"
+                            type="text"
+                            value={formValues.email}
+                            onChange={handleChange}
+                            id="email"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="age" className="mb-1 text-white">Age:</label>
+                        <input
+                            name="age"
+                            type="number"
+                            value={formValues.age}
+                            onChange={handleChange}
+                            id="age"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="gender" className="mb-1 text-white">Gender:</label>
+                        <input
+                            name="gender"
+                            type="text"
+                            value={formValues.gender}
+                            onChange={handleChange}
+                            id="gender"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="address" className="mb-1 text-white">Address:</label>
+                        <textarea
+                            name="address"
+                            value={formValues.address}
+                            onChange={handleChange}
+                            id="address"
+                            className="rounded-md border-gray-300 p-2 h-20 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="familyCount" className="mb-1 text-white">Family Count:</label>
+                        <input
+                            name="familyCount"
+                            type="number"
+                            value={formValues.familyCount}
+                            onChange={handleChange}
+                            id="familyCount"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                        />
+                    </div>
                 </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-200">
                     Submit
                 </button>
             </form>
         </div>
+
+
     );
 };
 

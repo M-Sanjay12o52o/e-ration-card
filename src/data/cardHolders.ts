@@ -5,7 +5,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Doe",
         address: "123 Main St",
         familyCount: 2,
-        gender: "Male"
+        gender: "Male",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "2",
@@ -13,7 +15,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Smith",
         address: "456 Elm St",
         familyCount: 3,
-        gender: "Female"
+        gender: "Female",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "3",
@@ -21,7 +25,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Johnson",
         address: "789 Oak St",
         familyCount: 1,
-        gender: "Male"
+        gender: "Male",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "4",
@@ -29,7 +35,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Williams",
         address: "100 Pine St",
         familyCount: 4,
-        gender: "Female"
+        gender: "Female",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "5",
@@ -37,7 +45,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Brown",
         address: "200 Maple St",
         familyCount: 2,
-        gender: "Male"
+        gender: "Male",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "6",
@@ -45,7 +55,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Miller",
         address: "300 Park St",
         familyCount: 1,
-        gender: "Female"
+        gender: "Female",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "7",
@@ -53,7 +65,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Taylor",
         address: "400 Lake St",
         familyCount: 3,
-        gender: "Male"
+        gender: "Male",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "8",
@@ -61,7 +75,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Jones",
         address: "500 River St",
         familyCount: 2,
-        gender: "Female"
+        gender: "Female",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "9",
@@ -69,7 +85,9 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Jackson",
         address: "600 Hill St",
         familyCount: 1,
-        gender: "Male"
+        gender: "Male",
+        number: "987937698",
+        email: "test@gmail.com"
     },
     {
         id: "10",
@@ -77,6 +95,8 @@ export const cardHolders: CardHoldersType[] = [
         lastName: "Lee",
         address: "700 Valley St",
         familyCount: 4,
-        gender: "Female"
+        gender: "Female",
+        number: "987937698",
+        email: "test@gmail.com"
     }
 ]

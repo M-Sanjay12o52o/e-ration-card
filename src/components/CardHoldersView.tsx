@@ -81,7 +81,7 @@ const CardHolderView: React.FC = () => {
                 <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredCardHolders.map((cardHolder) => (
                         <li key={cardHolder.id} className="cardholder-item bg-white rounded-md shadow-md p-4">
-                            <p>here are the card holders</p>
+                            <p>Card Holder</p>
                             <div className="flex flex-col">
                                 <Link
                                     href={`CardHolders/${cardHolder.id}`}

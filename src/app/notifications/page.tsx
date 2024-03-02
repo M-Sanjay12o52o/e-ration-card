@@ -1,5 +1,6 @@
 "use client"
 
+import NotificatoinsCard from '@/components/NotificatoinsCard';
 import { FC, useEffect, useState } from 'react'
 
 interface pageProps {
@@ -11,6 +12,8 @@ const page: FC<pageProps> = ({ }) => {
     const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    console.log("cardHoldersData: ", cardHoldersData)
+
     useEffect(() => {
         const fetchCardHolders = async () => {
             setIsLoading(true);
@@ -20,7 +23,7 @@ const page: FC<pageProps> = ({ }) => {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setCardHoldersData(data);
+                setCardHoldersData(data.res.flatMap((cardHolder: CardHoldersType) => cardHolder));
             } catch (error) {
                 console.error("Error from fetchCardHolders:", error);
             } finally {
@@ -31,9 +34,24 @@ const page: FC<pageProps> = ({ }) => {
         fetchCardHolders();
     }, []);
 
+
+    cardHoldersData.flat()
+
     return (
         <div className='h-screen w-screen bg-slate-400'>
-            hello
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                cardHoldersData.map(cardHolder => (
+                    <NotificatoinsCard
+                        key={cardHolder.id}
+                        firstName={cardHolder.firstName}
+                        lastName={cardHolder.lastName}
+                        number={cardHolder.number}
+                        email={cardHolder.email}
+                    />
+                ))
+            )}
         </div>
     )
 }

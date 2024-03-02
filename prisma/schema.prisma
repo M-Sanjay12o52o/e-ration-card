@@ -45,5 +45,6 @@ model CardHolder {
   familyCount Int
   gender      String
   number      String
+  email       String
   // familyMembers FamilyMembers[]
 }
