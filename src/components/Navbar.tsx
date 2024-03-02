@@ -7,11 +7,24 @@ import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from './ui/command';
+import { useRouter } from 'next/navigation';
 
 interface NavbarProps { }
 
 const Navbar: FC<NavbarProps> = ({ }) => {
     const [lang, setLang] = useState<"kannada" | "english">("kannada");
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [searchResults, setSearchResults] = useState<string[]>([])
+    const router = useRouter();
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value)
+    }
+
+    const handleSearch = () => {
+
+    }
 
     return (
         <div className="bg-sky-800 text-white py-4 px-6 flex justify-between items-center h-14 sticky">
@@ -39,6 +52,23 @@ const Navbar: FC<NavbarProps> = ({ }) => {
                 <button className="flex items-center mr-2">
                     <MonitorUp />
                 </button>
+                {/* <Command>
+                        <CommandInput placeholder="Type a command or search..." />
+                        <CommandList>
+                            <CommandEmpty>No results found.</CommandEmpty>
+                            <CommandGroup heading="Suggestions">
+                                <CommandItem>Calendar</CommandItem>
+                                <CommandItem>Search Emoji</CommandItem>
+                                <CommandItem>Calculator</CommandItem>
+                            </CommandGroup>
+                            <CommandSeparator />
+                            <CommandGroup heading="Settings">
+                                <CommandItem>Profile</CommandItem>
+                                <CommandItem>Billing</CommandItem>
+                                <CommandItem>Settings</CommandItem>
+                            </CommandGroup>
+                        </CommandList>
+                    </Command> */}
                 <Dialog>
                     <div>
                         <div className="flex items-center bg-blue-500 rounded-md p-1">
@@ -48,7 +78,23 @@ const Navbar: FC<NavbarProps> = ({ }) => {
                             <Search size={18} />
                             <DialogContent>
                                 <DialogHeader>
-                                    <Input className='pt-2' placeholder='Enhanced by Google inline' />
+                                    <Command>
+                                        <CommandInput placeholder="Type a command or search..." />
+                                        <CommandList>
+                                            <CommandEmpty>No results found.</CommandEmpty>
+                                            <CommandGroup heading="Suggestions">
+                                                <CommandItem>
+                                                    <Link href={"/notifications"}>Notifications</Link>
+                                                </CommandItem>
+                                                <CommandItem>
+                                                    <Link href={"/createCardHolder"}>Create</Link>
+                                                </CommandItem>
+                                                <CommandItem>
+                                                    <Link href={"/CardHolders"}>View</Link>
+                                                </CommandItem>
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
                                     <Button>Search</Button>
                                 </DialogHeader>
                             </DialogContent>
