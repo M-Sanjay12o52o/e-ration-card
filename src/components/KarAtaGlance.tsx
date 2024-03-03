@@ -6,7 +6,7 @@ interface KarAtaGlanceProps { }
 
 const KarAtaGlance: FC<KarAtaGlanceProps> = () => {
     return (
-        <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+        <div className="h-screen w-screen pt-40 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
             <div className="md:flex">
                 <div className="md:flex-shrink-0">
                     <Image src="/Karnataka_map_latest_2021_en.png" height={200} width={200} alt="Karnataka map" />
