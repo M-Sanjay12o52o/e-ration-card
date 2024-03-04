@@ -3,14 +3,17 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST() {
+export async function POST(request: Request) {
     try {
+        const body = await request.json();
+        console.log("body: ", body)
+        const { email, firstName, lastName } = body;
         const data = await resend.emails.send({
             from: 'Acme <onboarding@resend.dev>',
-            to: ['msnjy12o52o@gmail.com'],
-            subject: 'Hello world',
-            react: EmailTemplate({ firstName: 'John' }),
-            text: "Test text"
+            to: email,
+            subject: 'This is e-ration',
+            react: EmailTemplate({ firstName: firstName }),
+            text: "Testing resend email"
         });
 
         return Response.json(data);
