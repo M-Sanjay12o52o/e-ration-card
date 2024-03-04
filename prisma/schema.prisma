@@ -16,6 +16,7 @@ model User {
   number   String  @unique
   name     String?
   password String?
+  role     String  @default("USER")
 }
 
 model Hub {
@@ -47,4 +48,13 @@ model CardHolder {
   number      String
   email       String
   // familyMembers FamilyMembers[]
+}
+
+model Admin {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  number   String  @unique
+  name     String?
+  password String?
+  role     String  @default("ADMIN")
 }
