@@ -79,8 +79,8 @@ const LoginPage: FC<pageProps> = () => {
                     </button>
                 </form>
                 <p className='pl-20'>
-                    Login as Admin?{"  "}
-                    <Link className='underline' href={"/adminLogin"}>Admin Login</Link> page
+                    Login as User?{"  "}
+                    <Link className='underline' href={"/login"}>User Login</Link> page
                 </p>
             </Card>
         </div>
