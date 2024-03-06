@@ -84,6 +84,10 @@ const Page: FC = () => {
                 <Link href={'/notifications'}>Notifications</Link>
             </div>
 
+            <div className='w-64 h-10 text-center pt-2 bg-slate-600 rounded-md mt-4 cursor-pointer'>
+                <Link href={'/assign'}>Assign Ration</Link>
+            </div>
+
             <div className="selected-hub text-center font-bold text-xl mb-4">Selected hub: {selectedHub}</div>
 
             {selectedHubData && (
