@@ -58,3 +58,4 @@ model Admin {
   password String?
   role     String  @default("ADMIN")
 }
+

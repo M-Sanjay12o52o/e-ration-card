@@ -9,9 +9,9 @@ interface Nav2Props {
 }
 
 const Nav2: FC<Nav2Props> = ({ }) => {
-    return <div className='sticky pb-4'>
+    return <div className='sticky pb-4 h-28'>
         <div className="text-black">
-            <Logo height={75} width={75} />
+            <Logo />
         </div>
         <div className="flex flex-row ml-[650px]">
             <div className="flex flex-col items-center px-2">

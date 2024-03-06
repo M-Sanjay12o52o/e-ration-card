@@ -9,7 +9,13 @@ const KarAtaGlance: FC<KarAtaGlanceProps> = () => {
         <div className="h-screen w-screen pt-40 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
             <div className="md:flex">
                 <div className="md:flex-shrink-0">
-                    <Image src="/Karnataka_map_latest_2021_en.png" height={200} width={200} alt="Karnataka map" />
+                    <Image
+                        src="/Karnataka_map_latest_2021_en.png"
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{ width: '200px', height: 'auto' }}
+                        alt="Karnataka map" />
                 </div>
                 <div className="p-8">
                     <h1 className="text-xl font-semibold mb-4 text-blue-800">Karnataka at a Glance</h1>

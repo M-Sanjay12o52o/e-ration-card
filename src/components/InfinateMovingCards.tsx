@@ -18,22 +18,22 @@ export function InfiniteMovingCardsDemo() {
 const images = [
     {
         image: "/one.jpeg",
-        name: "ration image",
+        name: "ration image one",
     },
     {
         image: "/tw.jpeg",
-        name: "ration image"
+        name: "ration image two"
     },
     {
         image: "/three.jpeg",
-        name: "ration image"
+        name: "ration image three"
     },
     {
         image: "/four.jpeg",
-        name: "ration image"
+        name: "ration image four"
     },
     {
         image: "/five.jpeg",
-        name: "ration image"
+        name: "ration image five"
     }
 ]

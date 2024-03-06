@@ -20,11 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        <Nav2 />
-        {children}
+        <div className="fixed top-0 z-50 w-screen bg-white">
+          <Navbar />
+          <Nav2 />
+        </div>
+        <main className="min-h-screen pt-20">
+          {children}
+        </main>
         <Footer />
       </body>
-    </html>
+    </html >
   );
 }

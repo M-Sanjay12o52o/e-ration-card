@@ -17,11 +17,11 @@ const CarouselComponent: FC<CarouselProps> = ({ }) => {
     return <div className='h-screen flex justify-center items-center'>
         <Carousel>
             <CarouselContent className='ml-96 mt-24'>
-                <CarouselItem><Image className='rounded-lg' src={"/five.jpeg"} height={600} width={600} alt='ration image' /></CarouselItem>
-                <CarouselItem><Image className='rounded-lg' src={"/four.jpeg"} height={600} width={600} alt='ration image' /></CarouselItem>
-                <CarouselItem><Image className='rounded-lg' src={"/three.jpeg"} height={600} width={600} alt='ration image' /></CarouselItem>
-                <CarouselItem><Image className='rounded-lg' src={"/tw.jpeg"} height={600} width={600} alt='ration image' /></CarouselItem>
-                <CarouselItem><Image className='rounded-lg' src={"/one.jpeg"} height={600} width={600} alt='ration image' /></CarouselItem>
+                <CarouselItem><Image className='rounded-lg' src={"/five.jpeg"} height={600} width={600} alt='ration image five' /></CarouselItem>
+                <CarouselItem><Image className='rounded-lg' src={"/four.jpeg"} height={600} width={600} alt='ration image four' /></CarouselItem>
+                <CarouselItem><Image className='rounded-lg' src={"/three.jpeg"} height={600} width={600} alt='ration image three' /></CarouselItem>
+                <CarouselItem><Image className='rounded-lg' src={"/tw.jpeg"} height={600} width={600} alt='ration image two' /></CarouselItem>
+                <CarouselItem><Image className='rounded-lg' src={"/one.jpeg"} height={600} width={600} alt='ration image one' /></CarouselItem>
             </CarouselContent>
             <CarouselPrevious className='absolute left-0 top-1/2 transform -translate-y-1/2' />
             <CarouselNext className='absolute right-0 top-1/2 transform -translate-y-1/2' />
