@@ -59,3 +59,8 @@ model Admin {
   role     String  @default("ADMIN")
 }
 
+model Ration {
+  id       String @id @default(uuid())
+  item     String @unique
+  quantity String
+}

@@ -5,13 +5,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Link from 'next/link';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
-interface Hub {
-    name: string;
-    address: string;
-    superVisorName: string;
-    vehicleNumber: string;
-    // supervisorContact: string;
-}
 
 const Page: FC = () => {
     const [selectedHub, setSelectedHub] = useState('');
