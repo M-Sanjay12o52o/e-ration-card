@@ -6,22 +6,24 @@ export async function POST(req: Request) {
     try {
         const { firstName,
             lastName,
+            number,
+            email,
+            age,
             address,
             familyCount,
             gender,
-            number,
-            email
-            // familyMembers
         } = (await req.json()) as {
             firstName: string,
             lastName: string,
-            address: string;
-            familyCount: string;
-            gender: string;
             number: string;
             email: string;
-            // familyMembers: string;
+            age: string,
+            gender: string;
+            address: string;
+            familyCount: string;
         };
+
+        const ageNumber = parseInt(age, 10)
 
         const familyCountInt = parseInt(familyCount, 10)
 
@@ -29,12 +31,12 @@ export async function POST(req: Request) {
             data: {
                 firstName: firstName,
                 lastName: lastName,
+                number: number,
+                email: email,
+                age: ageNumber,
                 address: address,
                 familyCount: familyCountInt,
                 gender: gender,
-                number: number,
-                email: email
-                // familyMembers: familyMembers
             },
         });
 

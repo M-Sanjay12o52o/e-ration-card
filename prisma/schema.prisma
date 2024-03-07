@@ -28,26 +28,16 @@ model Hub {
   contact        String @unique
 }
 
-// model FamilyMembers {
-//   id           String     @id @default(uuid())
-//   firstName    String
-//   lastName     String
-//   age          Int
-//   gender       String
-//   cardHolder   CardHolder @relation(fields: [cardHolderId], references: [id])
-//   cardHolderId String
-// }
-
 model CardHolder {
   id          String @id @default(uuid())
   firstName   String @unique
   lastName    String @unique
+  number      String @unique
+  email       String @unique
+  age         Int
+  gender      String
   address     String @unique
   familyCount Int
-  gender      String
-  number      String
-  email       String
-  // familyMembers FamilyMembers[]
 }
 
 model Admin {
@@ -57,10 +47,4 @@ model Admin {
   name     String?
   password String?
   role     String  @default("ADMIN")
-}
-
-model Ration {
-  id       String @id @default(uuid())
-  item     String @unique
-  quantity String
 }
