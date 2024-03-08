@@ -2,6 +2,22 @@
 
 import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FC, useState } from 'react';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
 
 interface CreateCardHolderProps { }
 
@@ -19,11 +35,57 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
         address: "",
         familyCount: 0,
     });
+    const [familyMemberFormValues, setfamilyMemberFormValues] = useState({
+        fullName: "",
+        age: 0,
+        relation: "",
+        number: "",
+    })
+
+    console.log("familyMemberFormValues: ", familyMemberFormValues)
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target;
         setFormValues({ ...formValues, [name]: value });
     };
+
+    const handleChangeFamilyMembers = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
+        setfamilyMemberFormValues({ ...familyMemberFormValues, [name]: value });
+    };
+
+    const handleAddFamilyMember = async (event: React.FormEvent) => {
+
+        event.preventDefault();
+
+        setLoading(true);
+        setfamilyMemberFormValues({
+            fullName: "",
+            age: 0,
+            relation: "",
+            number: ""
+        })
+
+        try {
+            const response = await fetch('/api/addFamilyMember', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(familyMemberFormValues),
+            });
+
+            setLoading(false);
+
+            if (!response.ok) {
+                setError((await response.json()).message);
+                return;
+            }
+        } catch (error: any) {
+            setLoading(false);
+            setError(error);
+        }
+    }
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -73,7 +135,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
                             value={formValues.firstName}
                             onChange={handleChange}
                             id="firstName"
-                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500 text-black"
                         />
                     </div>
                     <div className="flex flex-col">
@@ -84,7 +146,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
                             value={formValues.lastName}
                             onChange={handleChange}
                             id="lastName"
-                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500 text-black"
                         />
                     </div>
                     <div className="flex flex-col">
@@ -95,7 +157,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
                             value={formValues.number}
                             onChange={handleChange}
                             id="number"
-                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500 text-black"
                         />
                     </div>
                     <div className="flex flex-col">
@@ -106,7 +168,7 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
                             value={formValues.email}
                             onChange={handleChange}
                             id="email"
-                            className="rounded-md border-gray-300 p-2 focus:border-blue-500"
+                            className="rounded-md border-gray-300 p-2 focus:border-blue-500 text-black"
                         />
                     </div>
                     <div className="flex flex-col">
@@ -152,7 +214,75 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
                             className="rounded-md border-gray-300 p-2 focus:border-blue-500"
                         />
                     </div>
+                    <div className="flex flex-col">
+                        <Dialog>
+                            <DialogTrigger
+                                className='h-12 w-full bg-blue-700 rounded-md'>
+                                Add Family Members
+                            </DialogTrigger>
+                            <DialogContent>
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Family Member</CardTitle>
+                                        <CardDescription>Family Members form</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <form action="">
+                                            <label htmlFor="familyMember-fullName">Full Name:</label>
+                                            <input
+                                                type="text"
+                                                id="familyMember-fullName"
+                                                name="fullName"
+                                                value={familyMemberFormValues.fullName}
+                                                onChange={handleChangeFamilyMembers}
+                                                className="rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 text-black mb-4"
+                                            />
+                                            <br />
+                                            <label htmlFor="familyMember-age">Age:</label>
+                                            <input
+                                                type="number"
+                                                id="familyMember-age"
+                                                name="age"
+                                                value={familyMemberFormValues.age}
+                                                onChange={handleChangeFamilyMembers}
+                                                className="rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 text-black mb-4"
+                                            />
+                                            <br />
+                                            <label htmlFor="familyMember-relation">Relation:</label>
+                                            <input
+                                                type="text"
+                                                id="familyMember-relation"
+                                                name="relation"
+                                                value={familyMemberFormValues.relation}
+                                                onChange={handleChangeFamilyMembers}
+                                                className="rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 text-black mb-4"
+                                            />
+                                            <br />
+                                            <label htmlFor="familyMember-relation">Number:</label>
+                                            <input
+                                                type="text"
+                                                id="familyMember-relation"
+                                                name="number"
+                                                value={familyMemberFormValues.number}
+                                                onChange={handleChangeFamilyMembers}
+                                                className="rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 text-black mb-4"
+                                            />
+                                            <button
+                                                onClick={handleAddFamilyMember}
+                                                className='bg-blue-500 rounded-md h-12 w-full' type="button">
+                                                Add Family Member
+                                            </button>
+                                        </form>
+                                    </CardContent>
+                                    <CardFooter>
+                                        {/* <p>Card Footer</p> */}
+                                    </CardFooter>
+                                </Card>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                 </div>
+
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-200">
                     Submit
                 </button>

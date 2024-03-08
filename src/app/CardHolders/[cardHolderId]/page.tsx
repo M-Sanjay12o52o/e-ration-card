@@ -1,27 +1,44 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { cardHolders } from '../../../data/cardHolders'; // Or fetch data dynamically
+import axios, { AxiosError } from "axios";
+import React, { useState, useEffect } from "react";
+import { useParams } from 'next/navigation';
 
-const CardHolderDetailsPage: React.FC<{ params: { cardHolderId: string } }> = ({ params }) => {
-    const [selectedCardHolder, setSelectedCardHolder] = useState<CardHoldersType | null>(null);
+const CardHolderDetailsPage: React.FC = () => {
+    const [cardHolderData, setCardHolderData] = useState<CardHoldersType>();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    console.log("cardHolderData: ", cardHolderData)
+    console.log("typeof cardHolderData: ", typeof cardHolderData)
+
+    const params = useParams();
 
     useEffect(() => {
-        const findCardHolder = (id: string) => cardHolders.find((card) => card.id === id);
-        const cardHolder = findCardHolder(params.cardHolderId); // Access cardHolderId from query
-        setSelectedCardHolder(cardHolder!);
+        const fetchCardHolder = async () => {
+            setIsLoading(true);
+            try {
+                const response = await axios.get(`/api/getCardHolder?cardHolderId=${params.cardHolderId}`);
+                setCardHolderData(response.data.cardHolder);
+            } catch (error: any) {
+                console.error("Error from fetchCardHolder:", error);
+                setError(error.message || 'An error occurred');
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
+        fetchCardHolder();
     }, [params.cardHolderId]);
 
-    if (!selectedCardHolder) {
-        return <div>Cardholder not found.</div>;
-    }
+    if (isLoading) return <p className="pt-36">Loading...</p>;
+    if (error) return <p className="pt-36">{error}</p>;
+    if (!cardHolderData) return <p className="pt-36">No data found</p>;
 
     return (
-        <div className="cardholder-details-container">
-            {/* Cardholder details and styling here */}
-            <h1 className="cardholder-name">{selectedCardHolder.firstName} {selectedCardHolder.lastName}</h1>
-            <p className="cardholder-address">Address: {selectedCardHolder.address}</p>
+        <div className="pt-32">
+            <p className="text-black font-medium">data found</p>
+            <p className="text-black font-medium">{cardHolderData.firstName}</p>
         </div>
     );
 };
