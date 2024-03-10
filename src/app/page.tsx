@@ -4,10 +4,10 @@ import KarAtaGlance from "@/components/KarAtaGlance";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <Hero />
       <InfiniteMovingCardsDemo />
       <KarAtaGlance />
-    </>
+    </div>
   );
 }

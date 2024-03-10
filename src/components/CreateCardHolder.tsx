@@ -18,10 +18,12 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { FamilyMember } from '@prisma/client';
 
 interface CreateCardHolderProps { }
 
 const CreateCardHolder: FC<CreateCardHolderProps> = () => {
+    const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([])
     const [error, setError] = useState("");
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -55,16 +57,24 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
     };
 
     const handleAddFamilyMember = async (event: React.FormEvent) => {
-
         event.preventDefault();
-
         setLoading(true);
+
+        const newFamilyMember = {
+            fullName: familyMemberFormValues.fullName,
+            age: familyMemberFormValues.age,
+            relation: familyMemberFormValues.relation,
+            number: familyMemberFormValues.number,
+        };
+
         setfamilyMemberFormValues({
             fullName: "",
             age: 0,
             relation: "",
             number: ""
         })
+
+        // setFamilyMembers([...familyMembers, newFamilyMember]);
 
         try {
             const response = await fetch('/api/addFamilyMember', {

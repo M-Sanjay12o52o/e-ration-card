@@ -3,14 +3,12 @@
 import axios, { AxiosError } from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from 'next/navigation';
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 
 const CardHolderDetailsPage: React.FC = () => {
     const [cardHolderData, setCardHolderData] = useState<CardHoldersType>();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    console.log("cardHolderData: ", cardHolderData)
-    console.log("typeof cardHolderData: ", typeof cardHolderData)
 
     const params = useParams();
 
@@ -37,8 +35,40 @@ const CardHolderDetailsPage: React.FC = () => {
 
     return (
         <div className="pt-32">
-            <p className="text-black font-medium">data found</p>
-            <p className="text-black font-medium">{cardHolderData.firstName}</p>
+            <Card className="bg-orange-500 p-4">
+                <CardHeader className="text-black">Card Holder</CardHeader>
+                <CardDescription className="text-black">Card Holder Details</CardDescription>
+                <br />
+                <CardContent>
+                    <ul className="list-none pl-4">
+                        <li>
+                            <span className="font-medium">ID:</span> {cardHolderData.id}
+                        </li>
+                        <li>
+                            <span className="font-medium">Name:</span> {cardHolderData.firstName} {cardHolderData.lastName}
+                        </li>
+                        <li>
+                            <span className="font-medium">Contact:</span>
+                            <ul className="list-disc pl-2">
+                                <li>Phone: {cardHolderData.number}</li>
+                                <li>Email: {cardHolderData.email}</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span className="font-medium">Age:</span> {cardHolderData.age}
+                        </li>
+                        <li>
+                            <span className="font-medium">Gender:</span> {cardHolderData.gender}
+                        </li>
+                        <li>
+                            <span className="font-medium">Address:</span> {cardHolderData.address}
+                        </li>
+                        <li>
+                            <span className="font-medium">Family Count:</span> {cardHolderData.familyCount}
+                        </li>
+                    </ul>
+                </CardContent>
+            </Card>
         </div>
     );
 };

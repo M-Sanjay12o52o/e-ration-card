@@ -6,7 +6,7 @@ interface pageProps {
 }
 
 const page: FC<pageProps> = ({ }) => {
-    return <div>
+    return <div className='mt-36'>
         <CreateCardHolder />
     </div>
 }

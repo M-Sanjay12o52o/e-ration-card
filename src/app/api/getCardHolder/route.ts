@@ -6,8 +6,6 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url)
         const cardHolderId = searchParams.get('cardHolderId')
 
-        console.log("api route cardHolderId: ", cardHolderId)
-
         if (!cardHolderId) {
             return new Response(JSON.stringify({ message: "Missing card holder ID" }), {
                 status: 400,

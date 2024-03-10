@@ -2,6 +2,7 @@ interface CardHoldersType {
     id: string
     firstName: string
     lastName: string
+    age: string
     address: string
     familyCount: number
     gender: string

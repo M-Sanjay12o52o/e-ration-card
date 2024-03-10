@@ -47,7 +47,7 @@ const Page: FC = () => {
     const selectedHubData = hubs.find((hub) => hub.name === selectedHub);
 
     return (
-        <div className="container mx-auto mt-28 px-4 pt-4">
+        <div className="container mx-auto mt-48 px-4 pt-4">
             <Select onValueChange={handleHubChange}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select a hub" />
@@ -63,7 +63,7 @@ const Page: FC = () => {
                 addHub ? (<>
                     <AddHubForm setAddHub={setAddHub} />
                 </>) : (
-                    <button onClick={() => setAddHub(true)} className='bg-gray-700 w-44 h-10 mt-4 rounded-md'>
+                    <button onClick={() => setAddHub(true)} className='bg-gray-600 w-44 h-10 mt-4 rounded-md'>
                         Add Hub
                     </button>
                 )
@@ -81,7 +81,9 @@ const Page: FC = () => {
                 <Link href={'/assign'}>Assign Ration</Link>
             </div>
 
-            <div className="selected-hub text-center font-bold text-xl mb-4">Selected hub: {selectedHub}</div>
+            <div className="selected-hub text-center font-bold text-xl mb-4">
+                Selected hub: {selectedHub}
+            </div>
 
             {selectedHubData && (
                 <div className="hub-details bg-gray-100 p-4 rounded shadow-md">

@@ -7,7 +7,7 @@ interface PageProps { }
 
 const Page: FC<PageProps> = ({ }) => {
     return (
-        <>
+        <div className='mt-48'>
             <Link href={"/"}>
                 <ArrowLeft className='absolute mt-6 size-6 text-white font-semibold' />
             </Link>
@@ -113,7 +113,7 @@ const Page: FC<PageProps> = ({ }) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

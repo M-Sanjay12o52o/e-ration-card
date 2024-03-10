@@ -38,7 +38,7 @@ const Page: FC<pageProps> = ({ }) => {
     cardHoldersData.flat()
 
     return (
-        <div className='h-screen w-screen bg-slate-400'>
+        <div className='h-screen w-screen bg-slate-400 mt-28'>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (

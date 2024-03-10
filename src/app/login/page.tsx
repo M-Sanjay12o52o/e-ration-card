@@ -54,7 +54,7 @@ const LoginPage: FC<pageProps> = () => {
     }
 
     return (
-        <div className="container mx-auto pt-24">
+        <div className="container mx-auto mt-48 pt-4">
             <div className="text-center mb-4">
                 <h1 className="font-serif text-4xl text-black text-center mb-4">
                     Welcome Back!
