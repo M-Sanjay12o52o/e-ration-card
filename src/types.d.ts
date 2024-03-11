@@ -18,3 +18,9 @@ interface Hub {
     vehicleNumber: string;
     // supervisorContact: string;
 }
+
+interface Product {
+    id: number;
+    name: string;
+    qty: number
+}

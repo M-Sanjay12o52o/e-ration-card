@@ -13,19 +13,23 @@ import {
     CommandShortcut,
 } from "@/components/ui/command"
 import { Check } from 'lucide-react';
+import { Ration } from '../../data/data';
 
 interface pageProps {
 
 }
 
 const page: FC<pageProps> = ({ }) => {
-    const [selector, setSelector] = useState<boolean>(false)
+    const products = Ration
+
     const [hubs, setHubs] = useState<Hub[]>([])
     const [error, setError] = useState<string | null>(null);
     const [selectedHubs, setSelectedHubs] = useState<string[]>([])
     const [selecteMultiple, setSelecteMultiple] = useState<boolean>(false)
+    const [selectedProducts, setSelectedProducts] = useState<Product[]>(products);
+    const [selectedHubId, setSelectedHubId] = useState<string>('');
 
-    console.log("selectedHubs: ", selectedHubs)
+    console.log("selectedHubId: ", selectedHubId)
 
     useEffect(() => {
         const fetchHubs = async () => {
@@ -54,16 +58,52 @@ const page: FC<pageProps> = ({ }) => {
         fetchHubs();
     }, [])
 
-    // Define data for your products
-    const products = [
-        { id: 1, name: 'Rice', qty: 10 },
-        { id: 2, name: 'Ragi', qty: 5 },
-        { id: 3, name: "Sugar", qty: 8 },
-        // Add more products here
-    ];
+    const handleQuantityChange = (productId: number, increment: boolean) => {
+        console.log("productId: ", productId, "increment: ", increment)
+
+        setSelectedProducts(prevProducts => {
+            const updatedProducts = prevProducts.map(product => {
+                if (product.id === productId) {
+                    const updatedQty = increment ? product.qty + 1 : product.qty - 1;
+                    return { ...product, qty: updatedQty };
+                }
+                return product;
+            });
+            return updatedProducts;
+        });
+    }
+
+    // handling assign
+    const handleAssign = async () => {
+        console.log("hello from handle assign")
+
+        console.log("Selected products:", selectedProducts);
+
+        try {
+            const response = await fetch('/api/assignRationToHub', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    hubId: selectedHubId,
+                    rationData: selectedProducts, // Assuming selectedProducts contains the ration data
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to assign ration data to hub');
+            }
+
+            // Handle success
+            console.log('Ration data assigned to hub successfully');
+        } catch (error: any) {
+            console.error('Error assigning ration data to hub:', error.message);
+        }
+    }
 
     return (
-        <div className='w-screen h-screen bg-green-400 mt-28 flex flex-row'>
+        <div className='w-screen h-screen bg-green-400 mt-48 flex flex-row'>
             <div className='bg-red-700 w-[700px] h-full rounded-md overflow-auto'>
                 {/* Ration Table */}
                 <div className='bg-yellow-300 text-center'>
@@ -84,7 +124,8 @@ const page: FC<pageProps> = ({ }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product) => (
+                        {/* {products.map((product) => ( */}
+                        {selectedProducts.map((product) => (
                             <tr key={product.id} style={{ borderBottom: '1px solid black' }}>  {/* Row border */}
                                 <td className='text-center' style={{ border: '1px solid black', padding: '5px' }}>  {/* Cell borders and padding */}
                                     {product.id}
@@ -93,9 +134,13 @@ const page: FC<pageProps> = ({ }) => {
                                     {product.name}
                                 </td>
                                 <td className='text-center' style={{ border: '1px solid black', padding: '5px' }}>  {/* Cell borders and padding */}
-                                    <button className='bg-white w-8 ml-2 mr-2 rounded-md'>-</button>
+                                    <button onClick={() => handleQuantityChange(product.id, false)} className='bg-white w-8 ml-2 mr-2 rounded-md'>
+                                        -
+                                    </button>
                                     {product.qty}
-                                    <button className='bg-white w-8 ml-2 mr-2 rounded-md'>+</button>
+                                    <button onClick={() => handleQuantityChange(product.id, true)} className='bg-white w-8 ml-2 mr-2 rounded-md'>
+                                        +
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -124,7 +169,8 @@ const page: FC<pageProps> = ({ }) => {
                                     className='flex flex-row justify-between'
                                 >
                                     <button
-                                        onClick={() => setSelectedHubs([hub.name])}
+                                        // onClick={() => setSelectedHubs([hub.name])}
+                                        onClick={() => setSelectedHubId(hub.id)}
                                         className='w-full text-start'
                                     >
                                         {hub.name}
@@ -135,6 +181,11 @@ const page: FC<pageProps> = ({ }) => {
                         </CommandGroup>
                     </CommandList>
                 </Command>
+                <div>
+                    <button onClick={handleAssign} className='w-44 ml-4 mt-4 bg-orange-400 h-12 rounded-md'>
+                        Assign
+                    </button>
+                </div>
             </div>
         </div>
     );

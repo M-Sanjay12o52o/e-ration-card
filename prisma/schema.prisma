@@ -20,12 +20,13 @@ model User {
 }
 
 model Hub {
-  id             String @id @default(uuid())
-  name           String @unique
-  address        String @unique
-  vehicleNumber  String @unique
+  id             String   @id @default(uuid())
+  name           String   @unique
+  address        String   @unique
+  vehicleNumber  String   @unique
   superVisorName String
-  contact        String @unique
+  contact        String   @unique
+  ration         Ration[]
 }
 
 model CardHolder {
@@ -58,4 +59,13 @@ model FamilyMember {
   relation     String
   CardHolder   CardHolder? @relation(fields: [cardHolderId], references: [id])
   cardHolderId String?
+}
+
+model Ration {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  quantity   Int
+  expiryDate DateTime
+  Hub        Hub?     @relation(fields: [hubId], references: [id])
+  hubId      String?
 }
