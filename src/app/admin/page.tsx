@@ -99,6 +99,7 @@ const Page: FC = () => {
                     <p className="flex items-center justify-between text-gray-700 font-medium mb-2">
                         <span className="w-1/3">Supervisor name:</span> {selectedHubData.vehicleNumber}
                     </p>
+                    <Link href={"/viewRation"} className='w-28 h-8 bg-blue-300 rounded-md '>View Ration</Link>
                     {/* <p className="flex items-center justify-between text-gray-700 font-medium">
                         <span className="w-1/3">Supervisor contact:</span> {selectedHubData.supervisorContact}
                     </p> */}

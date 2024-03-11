@@ -34,8 +34,8 @@ const CardHolderDetailsPage: React.FC = () => {
     if (!cardHolderData) return <p className="pt-36">No data found</p>;
 
     return (
-        <div className="pt-32">
-            <Card className="bg-orange-500 p-4">
+        <div className="pt-48">
+            <Card className="p-4">
                 <CardHeader className="text-black">Card Holder</CardHeader>
                 <CardDescription className="text-black">Card Holder Details</CardDescription>
                 <br />
