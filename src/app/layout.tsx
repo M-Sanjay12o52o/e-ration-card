@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Nav2 from "@/components/Nav2";
 import Footer from "@/components/Footer";
+import AuthProvider from './context/AuthProvider'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,14 +21,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="fixed top-0 z-50 w-screen bg-white">
-          <Navbar />
-          <Nav2 />
-        </div>
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <AuthProvider>
+          <div className="fixed top-0 z-50 w-screen bg-white">
+            <Navbar />
+            <Nav2 />
+          </div>
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html >
   );

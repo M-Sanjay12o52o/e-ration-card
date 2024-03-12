@@ -3,21 +3,29 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-        const { hubName, address, vehicle, supervisor, contact } = (await req.json()) as {
-            hubName: string;
+        const {
+            id,
+            name,
+            address,
+            vehicleNumber,
+            superVisorName,
+            superVisorContact
+        } = (await req.json()) as {
+            id: string;
+            name: string;
             address: string;
-            vehicle: string;
-            supervisor: string;
-            contact: string;
+            vehicleNumber: string;
+            superVisorName: string;
+            superVisorContact: string;
         };
 
         const hub = await db.hub.create({
             data: {
-                name: hubName,
-                address: address,
-                vehicleNumber: vehicle,
-                superVisorName: supervisor,
-                contact: contact
+                name,
+                address,
+                vehicleNumber,
+                superVisorName,
+                superVisorContact
             },
         });
 

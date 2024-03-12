@@ -1,3 +1,4 @@
+import { Hub } from '@prisma/client';
 import axios from 'axios';
 import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -9,15 +10,15 @@ interface AddHubFormProps {
 
 const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
     const [error, setError] = useState("");
-    const router = useRouter();
     const [loading, setLoading] = useState(false);
 
-    const [formValues, setFormValues] = useState({
-        hubName: "",
+    const [formValues, setFormValues] = useState<Hub>({
+        id: "",
+        name: "",
         address: "",
-        vehicle: "",
-        supervisor: "",
-        contact: ""
+        vehicleNumber: "",
+        superVisorName: "",
+        superVisorContact: "",
     })
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,11 +31,12 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
 
         setLoading(true);
         setFormValues({
-            hubName: "",
+            id: "",
+            name: "",
             address: "",
-            vehicle: "",
-            supervisor: "",
-            contact: ""
+            vehicleNumber: "",
+            superVisorName: "",
+            superVisorContact: "",
         })
 
         try {
@@ -68,10 +70,10 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Hub Name</label>
                     <input
                         type="text"
-                        name='hubName'
+                        name='name'
                         placeholder="Enter hub name"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={formValues.hubName}
+                        value={formValues.name}
                         onChange={handleChange}
                     />
                 </div>
@@ -92,10 +94,10 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Vehicle Number</label>
                     <input
                         type="text"
-                        name='vehicle'
+                        name='vehicleNumber'
                         placeholder="Enter vehicle number"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={formValues.vehicle}
+                        value={formValues.vehicleNumber}
                         onChange={handleChange}
                     />
                 </div>
@@ -104,10 +106,10 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Supervisor Name</label>
                     <input
                         type="text"
-                        name='supervisor'
+                        name='superVisorName'
                         placeholder="Enter supervisor name"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={formValues.supervisor}
+                        value={formValues.superVisorName}
                         onChange={handleChange}
                     />
                 </div>
@@ -116,10 +118,10 @@ const AddHubForm: FC<AddHubFormProps> = ({ setAddHub }) => {
                     <label className="block font-medium text-gray-700 mb-2">Contact</label>
                     <input
                         type="text"
-                        name='contact'
+                        name='superVisorContact'
                         placeholder="Enter contact info"
                         className="block w-full px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500"
-                        value={formValues.contact}
+                        value={formValues.superVisorContact}
                         onChange={handleChange}
                     />
                 </div>

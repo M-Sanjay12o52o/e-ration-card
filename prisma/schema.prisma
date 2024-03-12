@@ -1,13 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:e-ration-card/db/data.db"
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -20,13 +17,13 @@ model User {
 }
 
 model Hub {
-  id             String   @id @default(uuid())
-  name           String   @unique
-  address        String   @unique
-  vehicleNumber  String   @unique
-  superVisorName String
-  contact        String   @unique
-  ration         Ration[]
+  id                String   @id @default(uuid())
+  name              String   @unique
+  address           String   @unique
+  vehicleNumber     String   @unique
+  superVisorName    String
+  superVisorContact String   @unique
+  ration            Ration[] @relation("HubToRation")
 }
 
 model CardHolder {
@@ -57,8 +54,8 @@ model FamilyMember {
   age          Int
   number       String
   relation     String
-  CardHolder   CardHolder? @relation(fields: [cardHolderId], references: [id])
   cardHolderId String?
+  CardHolder   CardHolder? @relation(fields: [cardHolderId], references: [id])
 }
 
 model Ration {
@@ -66,6 +63,6 @@ model Ration {
   name       String   @unique
   quantity   Int
   expiryDate DateTime
-  Hub        Hub?     @relation(fields: [hubId], references: [id])
-  hubId      String?
+  hubIds     String?
+  hubs       Hub[]    @relation("HubToRation")
 }

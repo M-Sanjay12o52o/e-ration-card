@@ -18,10 +18,6 @@ const LoginPage: FC<pageProps> = () => {
     const [error, setError] = useState("");
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState<string>("")
-
-    // const searchParams = useSearchParams();
-    // const callbackUrl = searchParams.get("callbackUrl") || "/profile";
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,11 +36,10 @@ const LoginPage: FC<pageProps> = () => {
 
             if (!res?.error) {
                 // router.push(callbackUrl);
+                router.push("/profile")
             } else {
                 setError("invalid email or password");
             }
-
-            setSuccess("Logged in Successfully.")
         } catch (error: any) {
             setLoading(false);
             setError(error);
@@ -58,7 +53,6 @@ const LoginPage: FC<pageProps> = () => {
 
     return (
         <div className="container mx-auto mt-48 pt-4">
-            <p className='text-2xl'>{success}</p>
             <div className="text-center mb-4">
                 <h1 className="font-serif text-4xl text-black text-center mb-4">
                     Welcome Back!

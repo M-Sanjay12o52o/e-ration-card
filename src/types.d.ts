@@ -16,11 +16,11 @@ interface Hub {
     address: string;
     superVisorName: string;
     vehicleNumber: string;
-    // supervisorContact: string;
+    supervisorContact: string;
 }
 
 interface Product {
     id: number;
     name: string;
-    qty: number
+    quantity: number
 }

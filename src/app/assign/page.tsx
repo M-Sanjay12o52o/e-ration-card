@@ -64,8 +64,8 @@ const page: FC<pageProps> = ({ }) => {
         setSelectedProducts(prevProducts => {
             const updatedProducts = prevProducts.map(product => {
                 if (product.id === productId) {
-                    const updatedQty = increment ? product.qty + 1 : product.qty - 1;
-                    return { ...product, qty: updatedQty };
+                    const updatedQty = increment ? product.quantity + 1 : product.quantity - 1;
+                    return { ...product, quantity: updatedQty };
                 }
                 return product;
             });
@@ -87,13 +87,15 @@ const page: FC<pageProps> = ({ }) => {
                 },
                 body: JSON.stringify({
                     hubId: selectedHubId,
-                    rationData: selectedProducts, // Assuming selectedProducts contains the ration data
+                    rationData: selectedProducts,
                 }),
             });
 
             if (!response.ok) {
                 throw new Error('Failed to assign ration data to hub');
             }
+
+            setSelectedProducts(products)
 
             // Handle success
             console.log('Ration data assigned to hub successfully');
@@ -137,7 +139,7 @@ const page: FC<pageProps> = ({ }) => {
                                     <button onClick={() => handleQuantityChange(product.id, false)} className='bg-white w-8 ml-2 mr-2 rounded-md'>
                                         -
                                     </button>
-                                    {product.qty}
+                                    {product.quantity}
                                     <button onClick={() => handleQuantityChange(product.id, true)} className='bg-white w-8 ml-2 mr-2 rounded-md'>
                                         +
                                     </button>
