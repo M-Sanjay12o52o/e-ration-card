@@ -1,14 +1,14 @@
 import CardHolderView from '@/components/CardHoldersView'
 import { FC } from 'react'
 
-interface pageProps {
+interface PageProps {
 
 }
 
-const page: FC<pageProps> = ({ }) => {
+const Page: FC<PageProps> = ({ }) => {
     return <div className='mt-28'>
         <CardHolderView />
     </div>
 }
 
-export default page
+export default Page

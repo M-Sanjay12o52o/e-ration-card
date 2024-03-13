@@ -3,11 +3,11 @@
 import NotificatoinsCard from '@/components/NotificatoinsCard';
 import { FC, useEffect, useState } from 'react'
 
-interface pageProps {
+interface PageProps {
 
 }
 
-const Page: FC<pageProps> = ({ }) => {
+const Page: FC<PageProps> = ({ }) => {
     const [searchedName, setSearchedName] = useState<string>("");
     const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);

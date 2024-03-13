@@ -10,7 +10,7 @@ const Footer: FC<FooterProps> = ({ }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-8 px-4 md:px-8">
             <div>
                 <h1 className="text-lg font-bold mb-2">Disclaimer</h1>
-                <p className="text-sm">Please note that this page also provides links to the websites / web pages of Govt. Ministries/Departments/Organisations. The content of these websites are owned by the respective organisations and they may be contacted for any further information or suggestion.</p>
+                <p className="text-sm">Please note that this Page also provides links to the websites / web Pages of Govt. Ministries/Departments/Organisations. The content of these websites are owned by the respective organisations and they may be contacted for any further information or suggestion.</p>
             </div>
             <div>
                 <h1 className="text-lg font-bold mb-2">Website Policies</h1>

@@ -2,11 +2,26 @@
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
+import getCardHolders from '../../lib/getCardHolders';
 
 const CardHolderView: React.FC = () => {
     const [searchedName, setSearchedName] = useState<string>("");
     const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    // const cardHolders: Promise<CardHoldersType> = getCardHolders()
+
+    // const cardHolderFetched = cardHolders;
+
+    // console.log("cardHodlerFetched: ", cardHolderFetched)
+
+    // console.log("hello")
+
+    useEffect(() => {
+        const fetchedCardHolders = getCardHolders();
+
+        console.log("fetchedCardHolders: ", fetchedCardHolders)
+    }, [])
 
     useEffect(() => {
         const fetchCardHolders = async () => {

@@ -15,11 +15,11 @@ import {
 import { Check } from 'lucide-react';
 import { Ration } from '../../data/data';
 
-interface pageProps {
+interface PageProps {
 
 }
 
-const page: FC<pageProps> = ({ }) => {
+const Page: FC<PageProps> = ({ }) => {
     const products = Ration
 
     const [hubs, setHubs] = useState<Hub[]>([])
@@ -182,4 +182,4 @@ const page: FC<pageProps> = ({ }) => {
     );
 };
 
-export default page;
+export default Page;

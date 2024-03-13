@@ -6,11 +6,11 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation';
 import { FC, useEffect, useState } from 'react'
 
-interface pageProps {
+interface PageProps {
 
 }
 
-const page: FC<pageProps> = ({ }) => {
+const Page: FC<PageProps> = ({ }) => {
     const [searchedName, setSearchedName] = useState<string>("");
     const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -86,10 +86,10 @@ const page: FC<pageProps> = ({ }) => {
             </div>
         ) : (
             <div className='mt-56'>
-                <p>Permission denied: You do not have the required permissions to access this page.</p>
+                <p>Permission denied: You do not have the required permissions to access this Page.</p>
             </div>
         )
     )
 }
 
-export default page
+export default Page

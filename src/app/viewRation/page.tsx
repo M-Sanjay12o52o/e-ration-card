@@ -3,11 +3,11 @@
 import { FC, useEffect, useState } from 'react';
 import { RationTest } from '../../data/data';
 
-interface pageProps {
+interface PageProps {
 
 }
 
-const page: FC<pageProps> = ({ }) => {
+const Page: FC<PageProps> = ({ }) => {
     const selectedProducts = RationTest
     const [ration, setRation] = useState<Product[] | undefined>([])
 
@@ -68,4 +68,4 @@ const page: FC<pageProps> = ({ }) => {
     );
 };
 
-export default page;
+export default Page;

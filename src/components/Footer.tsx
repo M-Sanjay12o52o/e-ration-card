@@ -16,7 +16,7 @@ const Footer: FC<FooterProps> = ({ }) => {
                 <br />
                 <br />
                 <p>
-                    Please note that this page also provides links to the websites / web pages of Govt.
+                    Please note that this Page also provides links to the websites / web Pages of Govt.
                 </p>
                 <p>
                     Ministries/Departments/Organisations. The content of these websites are owned by the respective organisations and they may be contacted for any further information or suggestion.

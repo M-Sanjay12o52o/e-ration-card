@@ -8,9 +8,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 
-interface pageProps { }
+interface PageProps { }
 
-const LoginPage: FC<pageProps> = () => {
+const LoginPage: FC<PageProps> = () => {
     const [formValues, setFormValues] = useState({
         email: "",
         password: "",
@@ -81,7 +81,7 @@ const LoginPage: FC<pageProps> = () => {
                 </form>
                 <p className='pl-20'>
                     Login as User?{"  "}
-                    <Link className='underline' href={"/login"}>User Login</Link> page
+                    <Link className='underline' href={"/login"}>User Login</Link> Page
                 </p>
             </Card>
         </div>

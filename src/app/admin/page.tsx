@@ -59,7 +59,7 @@ const Page: FC = () => {
         };
 
         fetchHubs();
-    }, [])
+    }, [addHub])
 
     useEffect(() => {
         const getRation = async () => {
@@ -185,7 +185,7 @@ const Page: FC = () => {
             </div>
         ) : (
             <div className='mt-56'>
-                <p>Permission denied: You do not have the required permissions to access this page.</p>
+                <p>Permission denied: You do not have the required permissions to access this Page.</p>
             </div>
         )
     );
