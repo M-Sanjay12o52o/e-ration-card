@@ -5,6 +5,8 @@ export async function POST(req: Request) {
     try {
         const { hubId, rationData } = await req.json();
 
+        console.log("hubId: ", rationData)
+
         if (!hubId || !rationData) {
             throw new Error("Hub ID and ration data are required")
         }

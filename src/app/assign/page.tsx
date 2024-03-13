@@ -166,7 +166,7 @@ const page: FC<pageProps> = ({ }) => {
                                     >
                                         {hub.name}
                                     </button>
-                                    {selectedHubs.includes(hub.name) ? <Check /> : null}
+                                    {selectedHubId === hub.id ? <Check /> : null}
                                 </CommandItem>
                             ))}
                         </CommandGroup>

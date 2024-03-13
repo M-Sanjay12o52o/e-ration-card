@@ -1,3 +1,24 @@
+-- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('ADMIN', 'USER', 'SUBADMIN');
+
+-- CreateTable
+CREATE TABLE "Account" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "provider" TEXT NOT NULL,
+    "providerAccountId" TEXT NOT NULL,
+    "refresh_token" TEXT,
+    "access_token" TEXT,
+    "expires_at" INTEGER,
+    "token_type" TEXT,
+    "scope" TEXT,
+    "id_token" TEXT,
+    "session_state" TEXT,
+
+    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -5,9 +26,19 @@ CREATE TABLE "User" (
     "number" TEXT NOT NULL,
     "name" TEXT,
     "password" TEXT,
-    "role" TEXT NOT NULL DEFAULT 'USER',
+    "role" "UserRole" NOT NULL DEFAULT 'USER',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Session" (
+    "id" TEXT NOT NULL,
+    "sessionToken" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "expires" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -65,7 +96,7 @@ CREATE TABLE "FamilyMember" (
 CREATE TABLE "Ration" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "quantity" INTEGER NOT NULL,
+    "quantity" JSONB NOT NULL,
     "expiryDate" TIMESTAMP(3) NOT NULL,
     "hubIds" TEXT[],
 
@@ -79,10 +110,16 @@ CREATE TABLE "_HubToRation" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_number_key" ON "User"("number");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Hub_name_key" ON "Hub"("name");
@@ -128,6 +165,12 @@ CREATE UNIQUE INDEX "_HubToRation_AB_unique" ON "_HubToRation"("A", "B");
 
 -- CreateIndex
 CREATE INDEX "_HubToRation_B_index" ON "_HubToRation"("B");
+
+-- AddForeignKey
+ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "FamilyMember" ADD CONSTRAINT "FamilyMember_cardHolderId_fkey" FOREIGN KEY ("cardHolderId") REFERENCES "CardHolder"("id") ON DELETE SET NULL ON UPDATE CASCADE;
