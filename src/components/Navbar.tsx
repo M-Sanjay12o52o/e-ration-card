@@ -8,23 +8,13 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from './ui/command';
-import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 interface NavbarProps { }
 
 const Navbar: FC<NavbarProps> = ({ }) => {
     const [lang, setLang] = useState<"kannada" | "english">("kannada");
-    const [searchQuery, setSearchQuery] = useState<string>("");
-    const [searchResults, setSearchResults] = useState<string[]>([])
-    const router = useRouter();
-
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value)
-    }
-
-    const handleSearch = () => {
-
-    }
+    const { data: session } = useSession()
 
     return (
         <div className="bg-sky-800 text-white py-4 px-6 flex justify-between items-center h-14 sticky">
@@ -40,6 +30,11 @@ const Navbar: FC<NavbarProps> = ({ }) => {
             <div className="flex items-center">
                 <Link href={'/login'} className="mr-4 bg-blue-400 px-2 rounded-lg">User Login</Link>
                 <Link href={"/register"} className="mr-4 bg-blue-400 px-2 rounded-lg">User Registration</Link>
+                {session && (
+                    <Link href="/api/auth/signout" className='mr-4 bg-blue-400 px-2 rounded-lg'>
+                        Sign Out
+                    </Link>
+                )}
                 <div className="flex items-center mr-4 bg-white rounded-lg p-1 w-15">
                     <button className="bg-black"><Moon size={25} /></button>
                     <button className='bg-yellow-300'><Sun size={25} /></button>

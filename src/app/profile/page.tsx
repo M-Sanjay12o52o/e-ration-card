@@ -18,7 +18,7 @@ const page: FC<pageProps> = ({ }) => {
 
     if (status === "authenticated") {
         return <div className='w-screen h-screen mt-48 bg-slate-400'>
-            <p>Signed in as {session.user?.email}</p>
+            <p>Signed in as {session.user?.role}</p>
         </div>
     }
 

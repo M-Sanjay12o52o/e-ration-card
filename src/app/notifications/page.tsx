@@ -12,8 +12,6 @@ const Page: FC<pageProps> = ({ }) => {
     const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    console.log("cardHoldersData: ", cardHoldersData)
-
     useEffect(() => {
         const fetchCardHolders = async () => {
             setIsLoading(true);
@@ -34,11 +32,10 @@ const Page: FC<pageProps> = ({ }) => {
         fetchCardHolders();
     }, []);
 
-
     cardHoldersData.flat()
 
     return (
-        <div className='h-screen w-screen bg-slate-400 mt-28'>
+        <div className='h-screen w-screen bg-slate-400 mt-48'>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (

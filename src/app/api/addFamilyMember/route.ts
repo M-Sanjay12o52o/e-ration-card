@@ -26,8 +26,6 @@ export async function POST(req: Request) {
             }
         })
 
-        console.log("familyMember: ", familyMember)
-
         return new Response(JSON.stringify(familyMember), {
             status: 201,
             statusText: "Family Member Created"

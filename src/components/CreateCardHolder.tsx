@@ -44,8 +44,6 @@ const CreateCardHolder: FC<CreateCardHolderProps> = () => {
         number: "",
     })
 
-    console.log("familyMemberFormValues: ", familyMemberFormValues)
-
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target;
         setFormValues({ ...formValues, [name]: value });

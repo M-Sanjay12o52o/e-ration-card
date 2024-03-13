@@ -2,10 +2,13 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/lib/db";
 import bcrypt from "bcrypt";
+import { UserRole } from "@prisma/client";
 
 export const options: NextAuthOptions = {
   pages: {
     signIn: "/login",
+
+    error: "/login",
   },
   session: {
     strategy: "jwt"
@@ -26,9 +29,10 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        const { email, password } = credentials as {
+        const { email, password, role } = credentials as {
           email: string;
           password: string;
+          role: UserRole;
         };
 
         const matchingUser = await db.user.findFirst({
@@ -59,32 +63,25 @@ export const options: NextAuthOptions = {
           id: matchingUser.id,
           name: matchingUser.name,
           email: matchingUser.email,
+          role: matchingUser.role,
           randomKey: "Hey cool",
         };
       },
     }),
   ],
+
   callbacks: {
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
-        }
-      }
-    },
-    jwt: ({ token, user }) => {
-      if (user) {
-        const u = user as unknown as any;
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey,
-        };
-      }
+    async jwt({ token, user }) {
+      if (user) token.role = user.role
       return token;
     },
-  }
+    // if you want to use the role in client components
+    async session({ session, token }) {
+      if (session?.user) session.user.role = token.role;
+      return session;
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    }
+  },
 };

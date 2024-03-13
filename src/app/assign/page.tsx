@@ -29,8 +29,6 @@ const page: FC<pageProps> = ({ }) => {
     const [selectedProducts, setSelectedProducts] = useState<Product[]>(products);
     const [selectedHubId, setSelectedHubId] = useState<string>('');
 
-    console.log("selectedHubId: ", selectedHubId)
-
     useEffect(() => {
         const fetchHubs = async () => {
             try {
@@ -59,8 +57,6 @@ const page: FC<pageProps> = ({ }) => {
     }, [])
 
     const handleQuantityChange = (productId: number, increment: boolean) => {
-        console.log("productId: ", productId, "increment: ", increment)
-
         setSelectedProducts(prevProducts => {
             const updatedProducts = prevProducts.map(product => {
                 if (product.id === productId) {
@@ -75,10 +71,6 @@ const page: FC<pageProps> = ({ }) => {
 
     // handling assign
     const handleAssign = async () => {
-        console.log("hello from handle assign")
-
-        console.log("Selected products:", selectedProducts);
-
         try {
             const response = await fetch('/api/assignRationToHub', {
                 method: 'POST',
@@ -96,9 +88,6 @@ const page: FC<pageProps> = ({ }) => {
             }
 
             setSelectedProducts(products)
-
-            // Handle success
-            console.log('Ration data assigned to hub successfully');
         } catch (error: any) {
             console.error('Error assigning ration data to hub:', error.message);
         }

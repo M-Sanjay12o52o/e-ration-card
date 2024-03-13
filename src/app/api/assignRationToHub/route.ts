@@ -5,9 +5,6 @@ export async function POST(req: Request) {
     try {
         const { hubId, rationData } = await req.json();
 
-        console.log("hubId: ", hubId);
-        console.log("rationData: ", rationData)
-
         if (!hubId || !rationData) {
             throw new Error("Hub ID and ration data are required")
         }
@@ -38,8 +35,6 @@ export async function POST(req: Request) {
                     const createdRations = await Promise.all(rationData.map(async (rationItem: Product) => {
                         const { id, name, quantity } = rationItem;
 
-                        console.log("id: ", id, "name: ", name, "quantity: ", quantity)
-
                         const createdRation = await db.ration.create({
                             data: {
                                 name,
@@ -55,8 +50,6 @@ export async function POST(req: Request) {
                 }
             })
         )
-
-        console.log("updatedRations: ", updatedRations);
 
         return NextResponse.json({
             status: "success",

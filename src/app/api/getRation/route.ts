@@ -4,8 +4,6 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
     const hubId = searchParams.get('hubId')
 
-    console.log("hubId: ", hubId)
-
     if (!hubId) {
         return new Response("Missing required parameter: hubId", { status: 400 })
     }

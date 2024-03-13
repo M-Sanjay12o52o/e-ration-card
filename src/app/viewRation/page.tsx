@@ -11,11 +11,7 @@ const page: FC<pageProps> = ({ }) => {
     const selectedProducts = RationTest
     const [ration, setRation] = useState<Product[] | undefined>([])
 
-    console.log("ration: ", ration)
-
     useEffect(() => {
-        console.log("hello from useeffect")
-
         const getRation = async () => {
             try {
                 const response = await fetch("/api/getRation");

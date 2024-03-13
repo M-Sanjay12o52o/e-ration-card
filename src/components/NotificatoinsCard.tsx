@@ -31,7 +31,6 @@ const NotificatoinsCard: FC<NotificatoinsCardProps> = ({ firstName, lastName, nu
 
         if (response.status === 200) {
             setSent(true);
-            console.log('sent')
         }
     }
 

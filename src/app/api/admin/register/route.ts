@@ -18,6 +18,7 @@ export async function POST(req: Request) {
                 email: email.toLowerCase(),
                 password: hashed_password,
                 number: mobNumber,
+                role: "ADMIN"
             },
         });
 
