@@ -4,14 +4,20 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
     const hubId = searchParams.get('hubId')
 
+    console.log("getRation hubId: ", hubId)
+
     if (!hubId) {
         return new Response("Missing required parameter: hubId", { status: 400 })
     }
 
     try {
         const rations = await db.ration.findMany({
-            include: { hubs: true }
+            where: {
+                hubs: { some: { id: hubId } }
+            }
         });
+
+        console.log("getRation rations: ", rations)
 
         return Response.json({ rations })
     } catch (error) {
