@@ -71,6 +71,15 @@ const Page: FC<PageProps> = ({ }) => {
 
     // handling assign
     const handleAssign = async () => {
+        const filteredProducts = selectedProducts.filter(
+            (product) => product.quantity > 0
+        )
+
+        if (filteredProducts.length === 0) {
+            console.error('No ration items with a quantity greater than 0 selected');
+            return;
+        }
+
         try {
             const response = await fetch('/api/assignRationToHub', {
                 method: 'POST',
@@ -79,7 +88,7 @@ const Page: FC<PageProps> = ({ }) => {
                 },
                 body: JSON.stringify({
                     hubId: selectedHubId,
-                    rationData: selectedProducts,
+                    rationData: filteredProducts,
                 }),
             });
 

@@ -54,6 +54,16 @@ CREATE TABLE "Hub" (
 );
 
 -- CreateTable
+CREATE TABLE "Ration" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "expiryDate" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Ration_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "CardHolder" (
     "id" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
@@ -93,17 +103,6 @@ CREATE TABLE "FamilyMember" (
 );
 
 -- CreateTable
-CREATE TABLE "Ration" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "quantity" JSONB NOT NULL,
-    "expiryDate" TIMESTAMP(3) NOT NULL,
-    "hubIds" TEXT[],
-
-    CONSTRAINT "Ration_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "_HubToRation" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
@@ -134,6 +133,9 @@ CREATE UNIQUE INDEX "Hub_vehicleNumber_key" ON "Hub"("vehicleNumber");
 CREATE UNIQUE INDEX "Hub_superVisorContact_key" ON "Hub"("superVisorContact");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Ration_name_key" ON "Ration"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "CardHolder_firstName_key" ON "CardHolder"("firstName");
 
 -- CreateIndex
@@ -156,9 +158,6 @@ CREATE UNIQUE INDEX "Admin_number_key" ON "Admin"("number");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "FamilyMember_fullName_key" ON "FamilyMember"("fullName");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Ration_name_key" ON "Ration"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_HubToRation_AB_unique" ON "_HubToRation"("A", "B");

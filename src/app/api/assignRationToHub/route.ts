@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     try {
         const { hubId, rationData } = await req.json();
 
-        console.log("hubId: ", rationData)
+        console.log("rationData: ", rationData)
 
         if (!hubId || !rationData) {
             throw new Error("Hub ID and ration data are required")
@@ -18,17 +18,17 @@ export async function POST(req: Request) {
             rationData.map(async (rationItem: Product) => {
                 const { id, name, quantity } = rationItem
 
+                const idString = id.toString();
+
                 const existingRation = await db.ration.findUnique({
-                    where: { name }
+                    where: { id: idString, name: name }
                 })
 
                 if (existingRation) {
                     const updatedExistingRation = await db.ration.update({
                         where: { id: existingRation.id },
                         data: {
-                            id: existingRation.id,
-                            name: existingRation.name,
-                            quantity: existingRation.quantity + quantity,
+                            quantity: { increment: quantity },
                             expiryDate
                         }
                     })
