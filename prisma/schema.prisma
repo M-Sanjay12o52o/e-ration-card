@@ -64,7 +64,7 @@ model Hub {
 
 model Ration {
   id         String   @id @default(uuid())
-  name       String
+  name       String @unique
   quantity   Int
   expiryDate DateTime
   hubs       Hub[]

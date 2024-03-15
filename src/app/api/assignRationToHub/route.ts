@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     try {
         const { hubId, rationData } = await req.json();
 
-        console.log("rationData: ", rationData)
+        console.log("rationData: ", rationData);
 
         if (!hubId || !rationData) {
             throw new Error("Hub ID and ration data are required")
@@ -14,44 +14,43 @@ export async function POST(req: Request) {
         const expiryDate = new Date();
         expiryDate.setMonth(expiryDate.getMonth() + 6);
 
-        const updatedRations = await Promise.all(
-            rationData.map(async (rationItem: Product) => {
-                const { id, name, quantity } = rationItem
+        // Array to store updated or created rations
+        const updatedRations = [];
 
-                const idString = id.toString();
+        // Loop through each ration item
+        for (const rationItem of rationData) {
+            const { id, name, quantity } = rationItem;
 
-                const existingRation = await db.ration.findUnique({
-                    where: { id: idString, name: name }
-                })
+            // Find existing ration by name
+            const existingRation = await db.ration.findFirst({
+                where: { name: name }
+            });
 
-                if (existingRation) {
-                    const updatedExistingRation = await db.ration.update({
-                        where: { id: existingRation.id },
-                        data: {
-                            quantity: { increment: quantity },
-                            expiryDate
-                        }
-                    })
-                    return updatedExistingRation;
-                } else {
-                    const createdRations = await Promise.all(rationData.map(async (rationItem: Product) => {
-                        const { id, name, quantity } = rationItem;
-
-                        const createdRation = await db.ration.create({
-                            data: {
-                                name,
-                                quantity: quantity,
-                                expiryDate,
-                                hubs: {
-                                    connect: { id: hubId }
-                                },
-                            }
-                        })
-                        return createdRation;
-                    }))
-                }
-            })
-        )
+            if (existingRation) {
+                // Update existing ration quantity and expiry date
+                const updatedExistingRation = await db.ration.update({
+                    where: { id: existingRation.id },
+                    data: {
+                        quantity: { increment: quantity },
+                        expiryDate
+                    }
+                });
+                updatedRations.push(updatedExistingRation);
+            } else {
+                // Create a new ration
+                const createdRation = await db.ration.create({
+                    data: {
+                        name,
+                        quantity,
+                        expiryDate,
+                        hubs: {
+                            connect: { id: hubId }
+                        },
+                    }
+                });
+                updatedRations.push(createdRation);
+            }
+        }
 
         return NextResponse.json({
             status: "success",

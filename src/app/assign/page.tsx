@@ -24,10 +24,11 @@ const Page: FC<PageProps> = ({ }) => {
 
     const [hubs, setHubs] = useState<Hub[]>([])
     const [error, setError] = useState<string | null>(null);
-    const [selectedHubs, setSelectedHubs] = useState<string[]>([])
     const [selecteMultiple, setSelecteMultiple] = useState<boolean>(false)
     const [selectedProducts, setSelectedProducts] = useState<Product[]>(products);
     const [selectedHubId, setSelectedHubId] = useState<string>('');
+
+    console.log("selectedHubId: ", selectedHubId)
 
     useEffect(() => {
         const fetchHubs = async () => {
@@ -103,42 +104,42 @@ const Page: FC<PageProps> = ({ }) => {
     }
 
     return (
-        <div className='w-screen h-screen bg-green-400 mt-48 flex flex-row'>
-            <div className='bg-red-700 w-[700px] h-full rounded-md overflow-auto'>
+        <div className='flex flex-row h-screen mt-52'>
+            <style jsx>{`
+            .container {
+              background-color: #f7f7f7; /* Professional background color */
+              margin-top: 5rem; /* Adjust margin to go under navigation */
+            }
+          `}</style>
+            {/* Left Panel */}
+            <div className='w-3/5 bg-gray-900 text-white'>
                 {/* Ration Table */}
-                <div className='bg-yellow-300 text-center'>
+                <div className='bg-gray-800 text-yellow-200 text-center'>
                     <h2 className='font-sans text-xl m-4'>Ration Table</h2>
                 </div>
-                <table style={{ border: '1px solid black', width: '100%' }}>  {/* Table border */}
-                    <thead style={{ borderBottom: '1px solid black' }}>  {/* Header row border */}
+                <table className='w-full border-collapse border border-gray-700'>
+                    <thead>
                         <tr>
-                            <th style={{ border: '1px solid black', padding: '5px' }}>  {/* Header cell borders */}
-                                Sl.No
-                            </th>
-                            <th style={{ border: '1px solid black', padding: '5px' }}>  {/* Header cell borders */}
-                                Product
-                            </th>
-                            <th style={{ border: '1px solid black', padding: '5px' }}>  {/* Header cell borders */}
-                                Qty (kgs)
-                            </th>
+                            <th className='border border-gray-700 px-4 py-2'>Sl.No</th>
+                            <th className='border border-gray-700 px-4 py-2'>Product</th>
+                            <th className='border border-gray-700 px-4 py-2'>Qty (kgs)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {products.map((product) => ( */}
                         {selectedProducts.map((product) => (
-                            <tr key={product.id} style={{ borderBottom: '1px solid black' }}>  {/* Row border */}
-                                <td className='text-center' style={{ border: '1px solid black', padding: '5px' }}>  {/* Cell borders and padding */}
-                                    {product.id}
-                                </td>
-                                <td className='text-center' style={{ border: '1px solid black', padding: '5px' }}>  {/* Cell borders and padding */}
-                                    {product.name}
-                                </td>
-                                <td className='text-center' style={{ border: '1px solid black', padding: '5px' }}>  {/* Cell borders and padding */}
-                                    <button onClick={() => handleQuantityChange(product.id, false)} className='bg-white w-8 ml-2 mr-2 rounded-md'>
+                            <tr key={product.id}>
+                                <td className='border border-gray-700 px-4 py-2'>{product.id}</td>
+                                <td className='border border-gray-700 px-4 py-2'>{product.name}</td>
+                                <td className='border border-gray-700 px-4 py-2 flex justify-center items-center'>
+                                    <button
+                                        onClick={() => handleQuantityChange(product.id, false)}
+                                        className='bg-white w-8 h-8 ml-2 mr-2 rounded-full focus:outline-none text-black'>
                                         -
                                     </button>
                                     {product.quantity}
-                                    <button onClick={() => handleQuantityChange(product.id, true)} className='bg-white w-8 ml-2 mr-2 rounded-md'>
+                                    <button
+                                        onClick={() => handleQuantityChange(product.id, true)}
+                                        className='bg-white w-8 h-8 ml-2 mr-2 rounded-full focus:outline-none text-black'>
                                         +
                                     </button>
                                 </td>
@@ -147,42 +148,47 @@ const Page: FC<PageProps> = ({ }) => {
                     </tbody>
                 </table>
             </div>
-            <div className='bg-yellow-400 w-full'>
-                <label htmlFor="selectMultiple">
-                    <input
-                        onClick={() => setSelecteMultiple(!selecteMultiple)}
-                        type="radio"
-                        name="selectMultiple"
-                        id="selectMultiple"
-                    />
-                    Select Multiple
-                </label>
-                <Command className='bg-slate-400 h-60'>
-                    <CommandInput placeholder="Type a command or search..." />
-                    <CommandList>
-                        <CommandEmpty>No results found.</CommandEmpty>
-                        <CommandSeparator />
-                        <CommandGroup heading="hubs">
-                            {hubs.map((hub) => (
-                                <CommandItem
-                                    key={hub.id}
-                                    className='flex flex-row justify-between'
-                                >
-                                    <button
-                                        // onClick={() => setSelectedHubs([hub.name])}
-                                        onClick={() => setSelectedHubId(hub.id)}
-                                        className='w-full text-start'
+            {/* Right Panel */}
+            <div className='w-2/5 bg-gray-100'>
+                {/* <div className='m-4'>
+                    <label htmlFor="selectMultiple" className='text-lg'>
+                        <input
+                            onClick={() => setSelecteMultiple(!selecteMultiple)}
+                            type="checkbox"
+                            name="selectMultiple"
+                            id="selectMultiple"
+                            className='mr-2'
+                        />
+                        Select Multiple
+                    </label>
+                </div> */}
+                <div className='m-4'>
+                    <Command className='bg-white shadow-md rounded-md p-4'>
+                        <CommandInput placeholder="Type a command or search..." />
+                        <CommandList>
+                            <CommandEmpty>No results found.</CommandEmpty>
+                            <CommandSeparator />
+                            <CommandGroup heading="Hubs">
+                                {hubs.map((hub) => (
+                                    <CommandItem
+                                        key={hub.id}
+                                        className='flex justify-between items-center p-2 cursor-pointer hover:bg-gray-200 rounded-md'
                                     >
-                                        {hub.name}
-                                    </button>
-                                    {selectedHubId === hub.id ? <Check /> : null}
-                                </CommandItem>
-                            ))}
-                        </CommandGroup>
-                    </CommandList>
-                </Command>
-                <div>
-                    <button onClick={handleAssign} className='w-44 ml-4 mt-4 bg-orange-400 h-12 rounded-md'>
+                                        <span
+                                            onClick={() => setSelectedHubId(hub.id)}
+                                            className='w-full'
+                                        >
+                                            {hub.name}
+                                        </span>
+                                        {selectedHubId === hub.id && <Check />}
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        </CommandList>
+                    </Command>
+                </div>
+                <div className='m-4'>
+                    <button onClick={handleAssign} className='w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md'>
                         Assign
                     </button>
                 </div>
