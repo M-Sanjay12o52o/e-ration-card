@@ -26,16 +26,17 @@ model Account {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  email    String    @unique
-  number   String    @unique
+  id       String  @id @default(uuid())
+  email    String  @unique
+  number   String  @unique
   name     String?
   password String?
 
-  role     UserRole @default(USER)
-  
-  Session  Session[]
-  Account  Account[]
+  role UserRole @default(USER)
+
+  Session         Session[]
+  Account         Account[]
+  ApplicationData Application[]
 }
 
 model Session {
@@ -64,12 +65,11 @@ model Hub {
 
 model Ration {
   id         String   @id @default(uuid())
-  name       String @unique
+  name       String   @unique
   quantity   Int
   expiryDate DateTime
   hubs       Hub[]
 }
-
 
 model CardHolder {
   id            String         @id @default(uuid())
@@ -84,15 +84,6 @@ model CardHolder {
   familyMembers FamilyMember[]
 }
 
-model Admin {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  number   String  @unique
-  name     String?
-  password String?
-  role     String  @default("ADMIN")
-}
-
 model FamilyMember {
   id           String      @id @default(uuid())
   fullName     String      @unique
@@ -101,4 +92,25 @@ model FamilyMember {
   relation     String
   cardHolderId String?
   CardHolder   CardHolder? @relation(fields: [cardHolderId], references: [id])
+}
+
+model Application {
+  id       String            @id @default(uuid())
+  formData ApplicationData[]
+  userId   String
+  user     User              @relation(fields: [userId], references: [id])
+}
+
+model ApplicationData {
+  id            String       @id @default(uuid())
+  firstName     String
+  lastName      String
+  number        String
+  emai          String
+  age           String
+  gender        String
+  address       String
+  familyCount   String
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId String?
 }

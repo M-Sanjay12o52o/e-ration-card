@@ -23,6 +23,7 @@ const Page: FC = () => {
     const [hubs, setHubs] = useState<Hub[]>([])
     const [error, setError] = useState<string | null>(null);
     const [ration, setRation] = useState<Product[] | undefined>([])
+    const [applications, setapplications] = useState()
     const selectedProducts = ration
 
     const { data: session } = useSession({
@@ -31,6 +32,8 @@ const Page: FC = () => {
             redirect('/api/auth/signin?callbackUrl=/client')
         }
     })
+
+    console.log("applications: ", applications)
 
     const role = session?.user.role
 
@@ -79,6 +82,26 @@ const Page: FC = () => {
         }
 
         getRation();
+    }, [selectedHub])
+
+    useEffect(() => {
+        const getApplications = async () => {
+            try {
+                const response = await fetch(`/api/getApplications`);
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch ration");
+                }
+
+                const data = await response.json();
+
+                setapplications(data);
+            } catch (error) {
+                console.log("Error fetching rations: ", error);
+            }
+        }
+
+        getApplications();
     }, [selectedHub])
 
     const handleHubChange = (value: string) => {

@@ -5,15 +5,28 @@ import { redirect, useParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import React, { useState, useEffect, FC } from "react";
 import axios, { AxiosError } from "axios";
+import Link from 'next/link';
 
 interface PageProps {
 
 }
 
 const DummyData = [
-    { date: "1/3/2024", status: "received" },
-    { date: "2/3/2024", status: "sent" },
-    { date: "3/3/2024", status: "sent" },
+    { date: "10/3/2024", status: "received" },
+    { date: "10/2/2024", status: "sent" },
+    { date: "10/1/2024", status: "sent" },
+    { date: "10/12/2023", status: "received" },
+    { date: "10/11/2023", status: "received" },
+    { date: "10/10/2023", status: "received" },
+    { date: "10/9/2023", status: "received" },
+    { date: "10/8/2023", status: "received" },
+    { date: "10/7/2023", status: "received" },
+    { date: "10/6/2023", status: "received" },
+    { date: "10/5/2023", status: "received" },
+    { date: "10/4/2023", status: "received" },
+    { date: "10/3/2023", status: "received" },
+    { date: "10/2/2023", status: "received" },
+    { date: "10/1/2023", status: "received" }
 ];
 
 const Page: FC<PageProps> = ({ }) => {
@@ -26,8 +39,6 @@ const Page: FC<PageProps> = ({ }) => {
             redirect('/api/auth/signin?callbackUrl=/client')
         }
     })
-
-    console.log("session.user.email: ", session?.user.email)
 
     const userEmail = session?.user.email
 
@@ -53,16 +64,22 @@ const Page: FC<PageProps> = ({ }) => {
     }, [role]);
 
     if (isLoading) return <p className="pt-36">Loading...</p>;
-    if (error) return <p className="pt-36">{error}</p>;
+    if (error) return <p className="pt-36">
+        {/* {error} */}
+        You don't have RATION CARD.
+        <Link href="/apply">Click here to apply</Link>
+    </p>;
     if (!cardHolderData) return <p className="pt-36">No data found</p>;
 
     if (status === "authenticated") {
         return (
-            <div className='w-screen h-screen bg-slate-400 flex flex-row justify-between'>
-                <p>Signed in as {session.user?.role}</p>
+            <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
+                <p className='w-full text-2xl text-center font-semibold'>Signed in as {session.user?.role}</p>
+                <br />
+                <br />
 
                 {role === "USER" && (
-                    <>
+                    <div className='flex flex-row justify-between px-32'>
                         <div className=''>
                             <Card className="p-4">
                                 <CardHeader className="text-black">Card Holder</CardHeader>
@@ -101,9 +118,9 @@ const Page: FC<PageProps> = ({ }) => {
                         </div>
 
                         <div>
-                            <h1 className='w-full text-center'>History</h1>
+                            <h1 className='w-full text-center text-2xl font-bold'>History</h1>
 
-                            <div className='overflow-auto'>
+                            <div className='overflow-auto h-96 bg-blue-300'>
                                 {DummyData.map((data, index) => (
                                     <div key={index} className="container flex flex-row justify-between bg-gray-500 rounded-md w-96 p-4 mb-4">
                                         <div>{data.date}</div>
@@ -112,9 +129,21 @@ const Page: FC<PageProps> = ({ }) => {
                                 ))}
                             </div>
                         </div>
-                    </>
+                    </div>
                 )}
-            </div >
+
+                {role === "ADMIN" && (
+                    <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
+                        <p>admin page</p>
+                    </div>
+                )}
+
+                {role === "SUBADMIN" && (
+                    <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
+                        <p>admin page</p>
+                    </div>
+                )}
+            </div>
         )
     }
 

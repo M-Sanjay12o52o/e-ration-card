@@ -35,9 +35,7 @@ const LoginPage: FC<PageProps> = () => {
             setLoading(false);
 
             if (!res?.error) {
-                // router.push(callbackUrl);
-                // router.push("/profile")
-                router.push("/admin")
+                router.push("/profile")
             } else {
                 setError("invalid email or password");
             }
