@@ -16,6 +16,7 @@ import {
 import { RationTest } from '@/data/data';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import Application from '@/components/Application';
 
 const Page: FC = () => {
     const [selectedHub, setSelectedHub] = useState<string | undefined>(undefined);
@@ -138,6 +139,8 @@ const Page: FC = () => {
                 <div className='w-64 h-10 text-center pt-2 bg-slate-600 rounded-md mt-4 cursor-pointer'>
                     <Link href={'/assign'}>Assign Ration</Link>
                 </div>
+
+                <Application data={applications} />
 
                 <div className="selected-hub text-center font-bold text-xl mb-4">
                     Selected hub: {selectedHub}

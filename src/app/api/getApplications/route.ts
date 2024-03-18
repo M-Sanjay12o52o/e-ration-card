@@ -3,7 +3,12 @@ import { Prisma } from '@prisma/client';
 
 export async function GET() {
     try {
-        const admins = await db.application.findMany()
+        const admins = await db.application.findMany({
+            include: {
+                // user: true
+                formData: true
+            }
+        })
 
         return new Response(JSON.stringify({ admins }), {
             headers: {
