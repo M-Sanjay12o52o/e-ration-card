@@ -59,6 +59,10 @@ const Page: FC<PageProps> = ({ }) => {
                     <Link href={'/notifications'}>Notifications</Link>
                 </div>
 
+                <div className='w-64 h-10 text-center pt-2 bg-slate-600 rounded-md mt-4 cursor-pointer'>
+                    <Link href={'/viewRation'}>View Ration</Link>
+                </div>
+
                 <div className='flex flex-row justify-around h-20 p-4 w-[1300px] ml-4 m-4'>
                     <button className='w-20 bg-blue-500 rounded-md h-10'>Create</button>
                     {/* ration received main */}

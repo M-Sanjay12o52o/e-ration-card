@@ -66,7 +66,7 @@ const Page: FC<PageProps> = ({ }) => {
     if (isLoading) return <p className="pt-36">Loading...</p>;
     if (error) return <p className="pt-36">
         {/* {error} */}
-        You don't have RATION CARD.
+        You don&apos;t have RATION CARD.
         <Link href="/apply">Click here to apply</Link>
     </p>;
     if (!cardHolderData) return <p className="pt-36">No data found</p>;
@@ -134,13 +134,14 @@ const Page: FC<PageProps> = ({ }) => {
 
                 {role === "ADMIN" && (
                     <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
-                        <p>admin page</p>
+                        <p>Admin page</p>
                     </div>
                 )}
 
                 {role === "SUBADMIN" && (
                     <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
-                        <p>admin page</p>
+                        <p>sub admin page</p>
+                        <Link href={'/subadmin'}>Sub admin page</Link>
                     </div>
                 )}
             </div>

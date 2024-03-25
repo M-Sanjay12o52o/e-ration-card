@@ -12,7 +12,7 @@ export async function POST(req: Request) {
         };
         const hashed_password = await hash(password, 12);
 
-        const user = await db.admin.create({
+        const user = await db.user.create({
             data: {
                 name: username,
                 email: email.toLowerCase(),
