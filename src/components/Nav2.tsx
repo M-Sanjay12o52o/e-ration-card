@@ -3,6 +3,15 @@ import Logo from "@/components/Logo";
 import { Contact, Contact2, GraduationCap, HomeIcon, Monitor, Phone, School2Icon, UserRound } from "lucide-react";
 import Link from 'next/link';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
+import {
+    Menubar,
+    MenubarContent,
+    MenubarItem,
+    MenubarMenu,
+    MenubarSeparator,
+    MenubarShortcut,
+    MenubarTrigger,
+} from "@/components/ui/menubar"
 
 interface Nav2Props {
 
@@ -37,7 +46,9 @@ const Nav2: FC<Nav2Props> = ({ }) => {
                     <DropdownMenuContent>
                         <DropdownMenuLabel>e-services</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Link href={'/profile'}>Profile</Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem>Billing</DropdownMenuItem>
                         <DropdownMenuItem>Team</DropdownMenuItem>
                         <DropdownMenuItem>Subscription</DropdownMenuItem>
@@ -53,7 +64,7 @@ const Nav2: FC<Nav2Props> = ({ }) => {
                 <p>Contact</p>
             </div>
             <div className="flex flex-col items-center px-2">
-                <button className="flex items-center"><Phone /></button>
+                <Link href={"./helpline"} className="flex items-center"><Phone /></Link>
                 <p>Helpline</p>
             </div>
         </div>
