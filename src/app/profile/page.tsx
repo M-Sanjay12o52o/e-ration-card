@@ -44,6 +44,8 @@ const Page: FC<PageProps> = ({ }) => {
 
     const role = session?.user.role
 
+    console.log("role: ", role)
+
     useEffect(() => {
         const fetchCardHolder = async () => {
             setIsLoading(true);
@@ -73,10 +75,12 @@ const Page: FC<PageProps> = ({ }) => {
 
     if (status === "authenticated") {
         return (
-            <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
+            <div className='w-screen h-screen container bg-slate-400 mt-64 pt-4'>
                 <p className='w-full text-2xl text-center font-semibold'>Signed in as {session.user?.role}</p>
                 <br />
                 <br />
+
+                <div>Role: {role}</div>
 
                 {role === "USER" && (
                     <div className='flex flex-row justify-between px-32'>

@@ -140,7 +140,11 @@ const Page: FC = () => {
                     <Link href={'/assign'}>Assign Ration</Link>
                 </div>
 
-                <Application data={applications} />
+                {/* <Application data={applications} /> */}
+
+                {
+                    applications && <Application data={applications} />
+                }
 
                 <div className="selected-hub text-center font-bold text-xl mb-4">
                     Selected hub: {selectedHub}

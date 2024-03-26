@@ -1,17 +1,19 @@
 import React, { FC } from 'react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 
+export const dynamic = 'force-dynamic'
+
 const Application: FC<{ data: any }> = ({ data }) => {
     // Handle potential missing data properties
     const { admins = [] } = data; // Set default value for admins (empty array)
 
     // Extract allFormData using array methods (more concise)
-    const allFormData = admins.flatMap((admin: { formData: any; }) => admin.formData) || [];
+    const allFormData = admins.length > 0 && admins.flatMap((admin: { formData: any; }) => admin.formData) || [];
 
     return (
-        <div className='w-44 h-10 bg-slate-500 rounded-md mt-4 text-center align-middle'>
+        <div className='w-44 h-10 bg-slate-600 rounded-md mt-4 text-center align-middle'>
             <AlertDialog>
-                <AlertDialogTrigger>View Applications</AlertDialogTrigger>
+                <AlertDialogTrigger className='pt-2'>View Applications</AlertDialogTrigger>
                 {/* Display "No data available" for empty allFormData */}
                 <AlertDialogContent>
                     <AlertDialogHeader>
