@@ -156,6 +156,7 @@ const Page: FC = () => {
                             <span className="w-1/3">Hub Name:</span> {selectedHubData.name}
                         </p>
                         <p>test</p>
+                        <p>sanjay</p>
                         <p className="flex items-center justify-between text-gray-700 font-medium mb-2">
                             <span className="w-1/3">Hub Address:</span> {selectedHubData.address}
                         </p>
