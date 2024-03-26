@@ -66,16 +66,16 @@ const Page: FC<PageProps> = ({ }) => {
     }, [role]);
 
     if (isLoading) return <p className="pt-36">Loading...</p>;
-    if (error) return <p className="pt-36">
+    if (error && role === 'USER') return <p className="pt-36">
         {/* {error} */}
         You don&apos;t have RATION CARD.
         <Link href="/apply">Click here to apply</Link>
     </p>;
-    if (!cardHolderData) return <p className="pt-36">No data found</p>;
+    if (!cardHolderData && role === 'USER') return <p className="pt-36">No data found</p>;
 
     if (status === "authenticated") {
         return (
-            <div className='w-screen h-screen container bg-slate-400 mt-64 pt-4'>
+            <div className='w-screen h-screen container bg-slate-400 pt-36'>
                 <p className='w-full text-2xl text-center font-semibold'>Signed in as {session.user?.role}</p>
                 <br />
                 <br />
@@ -92,29 +92,29 @@ const Page: FC<PageProps> = ({ }) => {
                                 <CardContent>
                                     <ul className="list-none pl-4">
                                         <li>
-                                            <span className="font-medium">ID:</span> {cardHolderData.id}
+                                            <span className="font-medium">ID:</span> {cardHolderData && cardHolderData.id}
                                         </li>
                                         <li>
-                                            <span className="font-medium">Name:</span> {cardHolderData.firstName} {cardHolderData.lastName}
+                                            <span className="font-medium">Name:</span> {cardHolderData && cardHolderData.firstName} {cardHolderData && cardHolderData.lastName}
                                         </li>
                                         <li>
                                             <span className="font-medium">Contact:</span>
                                             <ul className="list-disc pl-2">
-                                                <li>Phone: {cardHolderData.number}</li>
-                                                <li>Email: {cardHolderData.email}</li>
+                                                <li>Phone: {cardHolderData && cardHolderData.number}</li>
+                                                <li>Email: {cardHolderData && cardHolderData.email}</li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <span className="font-medium">Age:</span> {cardHolderData.age}
+                                            <span className="font-medium">Age:</span> {cardHolderData && cardHolderData.age}
                                         </li>
                                         <li>
-                                            <span className="font-medium">Gender:</span> {cardHolderData.gender}
+                                            <span className="font-medium">Gender:</span> {cardHolderData && cardHolderData.gender}
                                         </li>
                                         <li>
-                                            <span className="font-medium">Address:</span> {cardHolderData.address}
+                                            <span className="font-medium">Address:</span> {cardHolderData && cardHolderData.address}
                                         </li>
                                         <li>
-                                            <span className="font-medium">Family Count:</span> {cardHolderData.familyCount}
+                                            <span className="font-medium">Family Count:</span> {cardHolderData && cardHolderData.familyCount}
                                         </li>
                                     </ul>
                                 </CardContent>
@@ -137,15 +137,14 @@ const Page: FC<PageProps> = ({ }) => {
                 )}
 
                 {role === "ADMIN" && (
-                    <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
+                    <div className='w-screen h-screen container bg-slate-400'>
                         <p>Admin page</p>
                     </div>
                 )}
 
                 {role === "SUBADMIN" && (
-                    <div className='w-screen h-screen container bg-slate-400 mt-48 pt-4'>
-                        <p>sub admin page</p>
-                        <Link href={'/subadmin'}>Sub admin page</Link>
+                    <div className='w-screen h-screen container bg-slate-400'>
+                        <Link href={'/subadmin'}>Link to: <span className='underline'>Sub admin page</span></Link>
                     </div>
                 )}
             </div>
