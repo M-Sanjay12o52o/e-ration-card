@@ -26,6 +26,8 @@ const Page: FC = () => {
     const [ration, setRation] = useState<Product[] | undefined>([])
     const [applications, setapplications] = useState()
     const selectedProducts = ration
+    const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const { data: session } = useSession({
         required: true,
@@ -33,8 +35,6 @@ const Page: FC = () => {
             redirect('/api/auth/signin?callbackUrl=/client')
         }
     })
-
-    console.log("applications: ", applications)
 
     const role = session?.user.role
 
@@ -64,6 +64,26 @@ const Page: FC = () => {
 
         fetchHubs();
     }, [addHub])
+
+    useEffect(() => {
+        const fetchCardHolders = async () => {
+            setIsLoading(true);
+            try {
+                const response = await fetch('/api/getCardHolders');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setCardHoldersData(data.res.flatMap((cardHolder: CardHoldersType) => cardHolder));
+            } catch (error) {
+                console.error("Error from fetchCardHolders:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchCardHolders();
+    }, []);
 
     useEffect(() => {
         const getRation = async () => {
@@ -96,14 +116,22 @@ const Page: FC = () => {
 
                 const data = await response.json();
 
-                setapplications(data);
+                const filteredApplications = data.admins.flatMap((admin: any) =>
+                    admin.formData.filter((application: any) =>
+                        cardHoldersData.every((cardholder: any) => cardholder.emai !== application.emai)
+                    )
+                );
+
+                console.log("filteredApplications: ", filteredApplications)
+
+                setapplications(filteredApplications)
             } catch (error) {
                 console.log("Error fetching rations: ", error);
             }
         }
 
         getApplications();
-    }, [selectedHub])
+    }, [selectedHub, cardHoldersData])
 
     const handleHubChange = (value: string) => {
         setSelectedHub(value);
@@ -143,8 +171,12 @@ const Page: FC = () => {
                 {/* <Application data={applications} /> */}
 
                 {
-                    applications && <Application data={applications} />
+                    applications && <Application applications={applications} />
                 }
+
+                {/* Pass the filtered applications to the Application component */}
+                {/* {filteredApplications && <Application data={filteredApplications} />} */}
+
 
                 <div className="selected-hub text-center font-bold text-xl mb-4">
                     Selected hub: {selectedHub}
@@ -155,7 +187,7 @@ const Page: FC = () => {
                         <p className="flex items-center justify-between text-gray-700 font-medium mb-2">
                             <span className="w-1/3">Hub Name:</span> {selectedHubData.name}
                         </p>
-                        
+
                         <p className="flex items-center justify-between text-gray-700 font-medium mb-2">
                             <span className="w-1/3">Hub Address:</span> {selectedHubData.address}
                         </p>

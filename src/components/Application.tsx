@@ -3,13 +3,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 export const dynamic = 'force-dynamic'
 
-const Application: FC<{ data: any }> = ({ data }) => {
-    // Handle potential missing data properties
-    const { admins = [] } = data; // Set default value for admins (empty array)
-
-    // Extract allFormData using array methods (more concise)
-    const allFormData = admins.length > 0 && admins.flatMap((admin: { formData: any; }) => admin.formData) || [];
-
+const Application: FC<{ applications: any }> = ({ applications }) => {
     return (
         <div className='w-44 h-10 bg-slate-600 rounded-md mt-4 text-center align-middle'>
             <AlertDialog>
@@ -22,8 +16,8 @@ const Application: FC<{ data: any }> = ({ data }) => {
                             These are the open applications for Card.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
-                    {allFormData.length === 0 && <p>No data available</p>}
-                    {allFormData.map((applicationData: any) => (
+                    {applications.length === 0 && <p>No data available</p>}
+                    {applications.map((applicationData: any) => (
                         <div key={applicationData.id}>
                             {/* Render individual application details */}
                             <p>Applicant Name: {applicationData.firstName} {applicationData.lastName}</p>

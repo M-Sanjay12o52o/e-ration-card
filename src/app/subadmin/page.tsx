@@ -15,6 +15,8 @@ const Page: FC<PageProps> = ({ }) => {
     const [cardHoldersData, setCardHoldersData] = useState<CardHoldersType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    console.log("cardHoldersData: ", cardHoldersData)
+
     const { data: session } = useSession({
         required: true,
         onUnauthenticated() {
