@@ -118,7 +118,7 @@ const Page: FC = () => {
 
                 const filteredApplications = data.admins.flatMap((admin: any) =>
                     admin.formData.filter((application: any) =>
-                        cardHoldersData.every((cardholder: any) => cardholder.emai !== application.emai)
+                        cardHoldersData.every((cardholder: any) => cardholder.email !== application.email)
                     )
                 );
 

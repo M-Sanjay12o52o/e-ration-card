@@ -22,7 +22,7 @@ const Application: FC<{ applications: any }> = ({ applications }) => {
                             {/* Render individual application details */}
                             <p>Applicant Name: {applicationData.firstName} {applicationData.lastName}</p>
                             <p>Phone Number: {applicationData.number}</p>
-                            <p>Email: {applicationData.emai}</p>
+                            <p>Email: {applicationData.email}</p>
                             {/* Add more properties as needed */}
                         </div>
                     ))}
